@@ -1,0 +1,14 @@
+.home-header-container{
+    height: 10em;
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+}
+.home-header-calendar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 10em;
+}

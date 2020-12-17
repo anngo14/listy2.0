@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import '../../../css/MainContent/List/List.css'
+import { Card, ListGroup } from 'react-bootstrap';
+import '../../../../css/MainContent/Home/List/List.css'
 import ListItem from './ListItem';
 
 export default class List extends Component {
@@ -38,15 +39,21 @@ export default class List extends Component {
 
     render() {
         return (
-            <div className='list-container'>
-                <div className='list-header'>
+            <Card className='list-container'>
+                <Card.Header className='list-header'>
                     <h1>List Title</h1>
                     <span>Add +</span>
-                </div>
-                {this.list.map((item) => {
-                    return <ListItem title={item.title} key={item.id}/>
-                })}
-            </div>
+                </Card.Header>
+                <ListGroup variant='flush' className='list-content-container'>
+                    {this.list.map((item) => {
+                        return (
+                            <ListGroup.Item>
+                                <ListItem title={item.title} key={item.id} />
+                            </ListGroup.Item>
+                        )
+                    })}
+                </ListGroup>
+            </Card>
         )
     }
 }

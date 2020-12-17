@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from './components/SideBar/SideBar'
 import MainContent from './components/MainContent/MainContent'
 
