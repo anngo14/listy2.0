@@ -1,0 +1,48 @@
+/* Header */
+.header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+/* Avatar */
+.avatar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+    border-bottom: 1px solid gray;
+}
+.avatar > img{
+    width: 12em;
+    height: 12em;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+/* Menu Item */
+.menu-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1em;
+    width: 10em;
+    border: 1px solid black;
+}
+.menu-item-title{
+    margin-left: 5px;
+}
+
+/* SideBar */
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-right: 1px solid black;
+    height: 100vh;
+    width: 20em;
+}
