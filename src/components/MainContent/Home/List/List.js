@@ -102,7 +102,7 @@ export default class List extends Component {
     render() {
         return (
             <Card className='list-container'>
-                <Card.Header className='list-header'>
+                <Card.Header id='list-header'>
                     <h1>List Title</h1>
                     <span>Add +</span>
                 </Card.Header>

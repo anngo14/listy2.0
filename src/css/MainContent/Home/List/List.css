@@ -6,7 +6,7 @@
     align-items: center;
     width: 60%;
 }
-.list-header{
+#list-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
