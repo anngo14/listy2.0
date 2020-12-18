@@ -1,0 +1,41 @@
+/* Complete */
+.complete-container{
+    margin-left: 2em;
+    width: 30em;
+}
+#complete-header{
+    text-align: center;
+    padding: 0.5em;
+}
+.complete-list-container{
+    width: 100%;
+    height: 20em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Complete Item */
+.complete-item-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.complete-item-content-header{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+/* SubComplete Item */
+.subcomplete-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5em 1.5em;
+}
+.subcomplete-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

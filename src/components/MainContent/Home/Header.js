@@ -12,7 +12,8 @@ export default class Header extends Component {
                     <span>2020</span>
                 </div>
                 <div className='home-header-content'>
-
+                    <span id='home-header-time'>21:16:23</span>
+                    <span id='home-header-plan'>Plan Your Day</span>
                 </div>
             </Card>
         )
