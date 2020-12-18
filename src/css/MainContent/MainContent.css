@@ -1,7 +1,11 @@
 /* Main Content */
 .main-content-container{
-    width: 100%;
+    width: calc(100% - 20em);
     height: 100%;
     padding: 2em;
+    position: fixed;
+    left: 20em;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 

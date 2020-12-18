@@ -49,5 +49,9 @@
     justify-content: flex-start;
     width: 20em;
     height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     border-right: 1px solid black;
 }
