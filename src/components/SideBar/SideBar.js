@@ -34,8 +34,12 @@ export default function sidebar() {
     return (
         <div className='sidebar-container'>
             <div className='header-container'>
-                <span>menu</span>
-                <h2>Listy</h2>
+                <div className='header-logo-container'>
+                    <span>menu</span>
+                    <div className='small-spacer'></div>
+                    <h2>Listy</h2>
+                </div>
+                <span>logout</span>
             </div>
             <Avatar user='John Smith'/>
             {menu.map((item) => {
