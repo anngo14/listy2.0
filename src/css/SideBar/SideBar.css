@@ -37,6 +37,11 @@
     margin: 1em;
     width: 10em;
     border: 1px solid black;
+    color: black;
+}
+.menu-item:hover{
+    text-decoration: none;
+    color: black;
 }
 .menu-item-title{
     margin-left: 5px;

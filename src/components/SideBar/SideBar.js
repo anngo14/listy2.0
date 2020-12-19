@@ -8,22 +8,26 @@ export default function sidebar() {
         {
             id: 1,
             image: '',
-            name: 'Home'
+            name: 'Home',
+            link: '/home'
         },
         {
             id: 2,
             image: '',
-            name: 'Lists'
+            name: 'Lists',
+            link: '/lists'
         },
         {
             id: 3,
             image: '',
-            name: 'Settings'
+            name: 'Settings',
+            link: '/settings'
         },
         {
             id: 4,
             image: '',
-            name: 'About'
+            name: 'About',
+            link: '/about'
         }
     ];
     return (
@@ -38,7 +42,7 @@ export default function sidebar() {
             </div>
             <Avatar user='John Smith'/>
             {menu.map((item) => {
-                return <MenuItem name={item.name} key={item.id} />
+                return <MenuItem item={item} key={item.id} />
             })}
         </div>
     )
