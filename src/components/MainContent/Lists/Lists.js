@@ -30,7 +30,7 @@ export default class Lists extends Component {
     render() {
         return (
             <div>
-                <h1 id='list-title'>Lists</h1>
+                <h1 className='content-title'>Lists</h1>
                 <div id='list-header-row'>
                     <Card id='add-list-btn'>
                         <span>Add a New List +</span>

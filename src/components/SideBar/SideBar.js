@@ -18,15 +18,10 @@ export default function sidebar() {
         {
             id: 3,
             image: '',
-            name: 'History'
-        },
-        {
-            id: 4,
-            image: '',
             name: 'Settings'
         },
         {
-            id: 5,
+            id: 4,
             image: '',
             name: 'About'
         }

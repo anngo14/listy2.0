@@ -1,0 +1,14 @@
+/* Settings */
+#settings-container{
+    margin-top: 2em;
+}
+
+/* Settings Section */
+.settings-section{
+    margin-bottom: 2em;
+}
+.settings-content{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
