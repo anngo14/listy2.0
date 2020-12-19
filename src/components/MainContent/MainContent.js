@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../../css/MainContent/MainContent.css'
+import About from './About/About'
 import Home from './Home/Home'
 import Lists from './Lists/Lists'
 import Settings from './Settings/Settings'
@@ -11,6 +12,7 @@ export default class MainContent extends Component {
                 <Home />
                 <Lists />
                 <Settings />
+                <About />
             </div>
         )
     }
