@@ -43,7 +43,7 @@ export default class ListItem extends Component {
                         {detailed}
                         {this.props.item.subtasks.map((sub) => {
                             return (
-                                <div className='sublist-item'>
+                                <div className='sublist-item' key={sub.id}>
                                     <div className='sublist-header'>
                                         <input type='checkbox'/>
                                         <div className='small-spacer'></div>

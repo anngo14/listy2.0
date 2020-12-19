@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from './components/SideBar/SideBar'
 import MainContent from './components/MainContent/MainContent'
 import { BrowserRouter } from 'react-router-dom';
+global.jQuery = require('jquery');
 
 export default class App extends Component {
   render() {

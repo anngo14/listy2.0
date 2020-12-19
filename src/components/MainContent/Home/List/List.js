@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import { Card, Accordion } from 'react-bootstrap';
 import '../../../../css/MainContent/Home/List/List.css'
 import ListItem from './ListItem';
+import AddItemModal from './AddItemModal'
 
 export default class List extends Component {
+    state = {
+        addModal: false
+    }
     list = [
         {
             id: 1,
@@ -99,18 +103,29 @@ export default class List extends Component {
         },
     ];
 
+    showAddModal = () => {
+        this.setState({
+            addModal: true
+        });
+    }
+    hideAddModal = () => {
+        this.setState({
+            addModal: false
+        });
+    }
     render() {
         return (
             <Card className='list-container'>
                 <Card.Header id='list-header'>
                     <h1>List Title</h1>
-                    <span>Add +</span>
+                    <span id='list-add-btn' onClick={this.showAddModal} >Add +</span>
                 </Card.Header>
                 <Accordion className='list-content-container'>
                     {this.list.map((item) => {
                         return <ListItem key={item.id} item={item} />
                     })}
                 </Accordion>
+                <AddItemModal show={this.state.addModal} onHide={this.hideAddModal}/>
             </Card>
         )
     }

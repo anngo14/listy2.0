@@ -57,7 +57,7 @@ export default class Complete extends Component {
                 <h1 id='complete-header'>Completed Tasks</h1>
                 <Accordion className='complete-list-container'>
                     {this.complete.map((item) => {
-                        return <CompleteItem item={item}/>
+                        return <CompleteItem item={item} key={item.id}/>
                     })}
                 </Accordion>
             </Card>

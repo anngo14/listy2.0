@@ -18,6 +18,9 @@
     height: 35em;
     overflow-y: auto;
 }
+#list-add-btn{
+    cursor: pointer;
+}
 
 /* List Item */
 .list-item-header{
@@ -31,6 +34,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
 }
 .list-item-content-header{
     display: flex;
