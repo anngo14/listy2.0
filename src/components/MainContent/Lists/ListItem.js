@@ -10,6 +10,9 @@ export default function ListItem(props) {
             <div className='list-actions'>
                 <span>Info</span>
                 <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
                 <span>Select</span>
             </div>
         </Card>

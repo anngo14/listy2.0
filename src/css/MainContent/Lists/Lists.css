@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-content: space-between;
     flex-wrap: wrap;
+    color: black;
 }
 
 /* List */
@@ -19,6 +20,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+    color: black;
 }
 
 /* Add List Btn */
@@ -29,6 +31,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 /* List Item */
@@ -48,6 +51,7 @@
     align-items: center;
     height: 6em;
     width: 100%;
+    cursor: default;
 }
 .list-item-container{
     flex: 0 0 25%;
@@ -61,6 +65,7 @@
     align-items: center;
     height: 18em;
     width: 100%;
+    cursor: default;
 }
 .list-actions{
     display: flex;
@@ -69,4 +74,11 @@
     align-items: center;
     height: 2em;
     width: 100%;
+    border-top: 1px solid #c7c7c7;
+}
+.list-actions > span{
+    cursor: pointer;
+}
+.list-actions > span:hover{
+    text-decoration: underline;
 }
