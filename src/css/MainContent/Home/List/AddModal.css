@@ -1,5 +1,5 @@
 /* Add Modal */
-#add-subtasks-header{
+.add-item-subheader{
     margin-top: 2em;
 }
 #add-subtasks-list{
@@ -8,6 +8,10 @@
     margin-top: 1em;
     overflow-x: hidden;
     overflow-y: auto;
+    padding: 0 0.5em;
+}
+#add-title-input{
+    font-size: 25pt;
 }
 
 /* Add Modal Sub Task */
@@ -27,4 +31,11 @@
     align-items: center;
     cursor: pointer;
     width: 14em;
+}
+.add-subtasks-item{
+    height: 3em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5em;
 }
