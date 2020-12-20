@@ -99,7 +99,7 @@ export default class AddItemModal extends Component {
                         <Form.Group>
                             <Form.Control as='select' size='lg' value={this.state.priority} onChange={this.handlePriorityChange}>
                                 <option value='2'>High</option>
-                                <option selected value='1'>Normal</option>
+                                <option value='1'>Normal</option>
                                 <option value='0'>Low</option>
                             </Form.Control>
                         </Form.Group>

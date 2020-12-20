@@ -57,6 +57,7 @@ export default class List extends Component {
         item.dateCompleted = month + '/' + date + '/' + year;
         item.timeCompleted = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
         item.status = 1;
+        this.deleteFromList(item);
     }
     render() {
         return (

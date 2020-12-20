@@ -4,7 +4,13 @@ import '../../../../css/MainContent/Home/Complete/Complete.css'
 import CompleteItem from './CompleteItem';
 
 export default class Complete extends Component {
-    complete = [
+    constructor(props){
+        super(props);
+        this.state = {
+            complete: this.items
+        };
+    }
+    items = [
         {
             id: 1,
             title: 'Task 1',
@@ -49,15 +55,34 @@ export default class Complete extends Component {
             timeCompleted: '00:26:45', 
             priority: 2,
             status: 1
-        },
+        }
     ];
+    
+    
+    getIndex(item){
+        for(let i = 0; i < this.state.complete.length; i++){
+            if(this.state.complete[i].id === item.id) return i;
+        }
+        return -1;
+    }
+    deleteItem = (item) => {
+        let index = this.getIndex(item);
+        if(index === -1) return;
+        let copy = this.state.complete;
+        copy.splice(index, 1);
+        this.setState({
+            complete: copy
+        });
+    }
     render() {
         return (
             <Card className='complete-container'>
-                <h1 id='complete-header'>Completed Tasks</h1>
+                <div id='complete-header-container'>
+                    <h1 id='complete-header'>Completed Tasks</h1>
+                </div>
                 <Accordion className='complete-list-container'>
-                    {this.complete.map((item) => {
-                        return <CompleteItem item={item} key={item.id}/>
+                    {this.items.map((item) => {
+                        return <CompleteItem item={item} key={item.id} delete={this.deleteItem} />
                     })}
                 </Accordion>
             </Card>
