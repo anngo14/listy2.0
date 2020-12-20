@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
-import {Card, Accordion } from 'react-bootstrap'
+import { Card, Accordion } from 'react-bootstrap'
+import EditItemModal from './EditItemModal';
 
 export default class ListItem extends Component {
-    
-
+    state = {
+        editModal : false
+    }
+    showEditModal = () => {
+        this.setState({
+            editModal: true
+        });
+    }
+    hideEditModal = () => {
+        this.setState({
+            editModal: false
+        });
+    }
+    deleteItem = (item) => {
+        this.props.delete(item);
+    }
     render() {
         let detailed;
         if(this.props.item.subtasks.length === 0 || this.props.item.subtasks === undefined){
@@ -33,7 +48,7 @@ export default class ListItem extends Component {
                 <Accordion.Toggle className='list-item-header' as={Card.Body} eventKey={this.props.item.id}>
                     <h3>{this.props.item.title}</h3>
                     <div className='list-item-actions'>
-                        <span>Edit</span>
+                        <span onClick={this.showEditModal}>Edit</span>
                         <div className='small-spacer'></div>
                         <span>Mark Complete</span>
                     </div>
@@ -59,6 +74,7 @@ export default class ListItem extends Component {
                         })}
                     </Card.Body>
                 </Accordion.Collapse>
+                <EditItemModal show={this.state.editModal} onHide={this.hideEditModal} item={this.props.item} delete={this.deleteItem}/>
             </Card>
         )
     }

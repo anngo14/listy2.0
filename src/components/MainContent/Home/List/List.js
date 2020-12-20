@@ -9,6 +9,12 @@ export default class List extends Component {
         addModal: false,
         list: []
     }
+    getIndex(item){
+        for(let i = 0; i < this.state.list.length; i++){
+            if(this.state.list[i].id === item.id) return i;
+        }
+        return -1;
+    }
     showAddModal = () => {
         this.setState({
             addModal: true
@@ -19,11 +25,20 @@ export default class List extends Component {
             addModal: false
         });
     }
-    addtoList = (item) => {
+    addToList = (item) => {
         this.setState({
             list: [...this.state.list, item]
         });
         this.hideAddModal();
+    }
+    deleteFromList = (item) => {
+        let copy = this.state.list;
+        let index = this.getIndex(item);
+        if(index === -1) return;
+        copy.splice(index, 1);
+        this.setState({
+            list: copy
+        });
     }
     render() {
         return (
@@ -34,10 +49,10 @@ export default class List extends Component {
                 </Card.Header>
                 <Accordion className='list-content-container'>
                     {this.state.list.map((item) => {
-                        return <ListItem key={item.id} item={item} />
+                        return <ListItem key={item.id} item={item} delete={this.deleteFromList}/>
                     })}
                 </Accordion>
-                <AddItemModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addtoList}/>
+                <AddItemModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addToList}/>
             </Card>
         )
     }
