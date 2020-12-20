@@ -40,6 +40,24 @@ export default class List extends Component {
             list: copy
         });
     }
+    updateList = (item) => {
+        let copy = this.state.list;
+        let index = this.getIndex(item);
+        if(index === -1) return;
+        copy[index] = item;
+        this.setState({
+            list: copy
+        });
+    }
+    complete = (item) => {
+        let d = new Date();
+        let month = d.getMonth() + 1;
+        let date = d.getDate();
+        let year = d.getFullYear();
+        item.dateCompleted = month + '/' + date + '/' + year;
+        item.timeCompleted = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        item.status = 1;
+    }
     render() {
         return (
             <Card className='list-container'>
@@ -49,7 +67,7 @@ export default class List extends Component {
                 </Card.Header>
                 <Accordion className='list-content-container'>
                     {this.state.list.map((item) => {
-                        return <ListItem key={item.id} item={item} delete={this.deleteFromList}/>
+                        return <ListItem key={item.id} item={item} delete={this.deleteFromList} update={this.updateList} complete={this.complete}/>
                     })}
                 </Accordion>
                 <AddItemModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addToList}/>

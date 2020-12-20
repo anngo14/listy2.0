@@ -11,8 +11,11 @@ export default class SublistItem extends Component {
         };
     }
     handleChange = (e) => {
+        let copy = this.state.item;
+        copy.title = e.target.value;
         this.setState({
-            value: e.target.value
+            item: copy,
+            value: this.state.item.title
         });
         this.props.change(this.state.item);
     }

@@ -16,7 +16,7 @@
 }
 .list-content-container{
     width: 100%;
-    height: 30em;
+    height: 35em;
     overflow-y: auto;
 }
 #list-add-btn{
@@ -37,6 +37,14 @@
     align-items: center;
     cursor: pointer;
 }
+.list-item-action-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 1em;
+}
 .list-item-content-header{
     display: flex;
     flex-direction: row;
@@ -48,6 +56,9 @@
     flex-direction: row;
     align-items: baseline;
     justify-content: flex-start;
+}
+.list-item-btn{
+    width: 10em;
 }
 
 /* Sublist Item */

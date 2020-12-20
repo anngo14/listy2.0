@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Card, Accordion } from 'react-bootstrap'
+import { Card, Accordion, Button, Form } from 'react-bootstrap'
 import EditItemModal from './EditItemModal';
 
 export default class ListItem extends Component {
     state = {
         editModal : false
+    }
+    getIndex(id){
+        for(let i = 0; i < this.props.item.subtasks.length; i++){
+            if(this.props.item.subtasks[i].id === id) return i;
+        }
+        return -1;
     }
     showEditModal = () => {
         this.setState({
@@ -18,6 +24,21 @@ export default class ListItem extends Component {
     }
     deleteItem = (item) => {
         this.props.delete(item);
+    }
+    updateItem = (item) => {
+        this.props.update(item);
+        this.hideEditModal();
+    }
+    updateSublist = (e) => {
+        let copy = this.props.item;
+        let array = copy.subtasks;
+        let index = this.getIndex(e.target.value);
+        if(index === -1) return;
+        array[index].status = e.target.checked ? 1 : 0;
+        this.updateItem(copy);
+    }
+    complete = () => {
+        this.props.complete(this.props.item);
     }
     render() {
         let detailed;
@@ -48,33 +69,31 @@ export default class ListItem extends Component {
                 <Accordion.Toggle className='list-item-header' as={Card.Body} eventKey={this.props.item.id}>
                     <h3>{this.props.item.title}</h3>
                     <div className='list-item-actions'>
-                        <span onClick={this.showEditModal}>Edit</span>
-                        <div className='small-spacer'></div>
-                        <span>Mark Complete</span>
+                        <Button className='list-item-btn' variant='outline-success' onClick={this.complete}>Mark Complete</Button>
                     </div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={this.props.item.id}>
                     <Card.Body>
+                        <div className='list-item-action-row'>
+                            <Button variant='info' onClick={this.showEditModal} className='list-item-btn'>Edit</Button>
+                        </div>
                         {detailed}
                         {this.props.item.subtasks.map((sub) => {
                             return (
                                 <div className='sublist-item' key={sub.id}>
                                     <div className='sublist-header'>
-                                        <input type='checkbox'/>
+                                        <Form>
+                                            <Form.Check type='checkbox' value={sub.id} onChange={this.updateSublist} />
+                                        </Form>
                                         <div className='small-spacer'></div>
                                         <span>{sub.title}</span>
-                                    </div>
-                                    <div className='sublist-actions'>
-                                        <span>Edit</span>
-                                        <div className='small-spacer'></div>
-                                        <span>Delete</span>
                                     </div>
                                 </div>
                             )
                         })}
                     </Card.Body>
                 </Accordion.Collapse>
-                <EditItemModal show={this.state.editModal} onHide={this.hideEditModal} item={this.props.item} delete={this.deleteItem}/>
+                <EditItemModal show={this.state.editModal} onHide={this.hideEditModal} item={this.props.item} delete={this.deleteItem} update={this.updateItem}/>
             </Card>
         )
     }

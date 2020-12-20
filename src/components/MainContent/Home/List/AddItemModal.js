@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react';
-import { Form, Modal, Button, ListGroup, Card } from 'react-bootstrap'
+import { Form, Modal, Button, ListGroup } from 'react-bootstrap'
 import uuid from 'react-uuid'
 import '../../../../css/MainContent/Home/List/AddModal.css'
 import SublistItem from './SublistItem'
@@ -32,20 +32,20 @@ export default class AddItemModal extends Component {
     handleSubTaskItemChange = (task) => {
         let index = this.getIndex(task.id);
         if(index === -1) return;
-        let copy = [...this.state.subtasks];
-        copy[index].title = task.title;
+        let copy = this.state.subtasks;
+        copy[index] = task;
         this.setState({
             subtasks: copy
         });
     }
     handlePriorityChange = (e) => {
         this.setState({
-            priority: e.target.value
+            priority: parseInt(e.target.value)
         });
     }
     addSubTask = () => {
         this.setState({
-            subtasks: [...this.state.subtasks, { id: uuid(), title: this.state.subtask }],
+            subtasks: [...this.state.subtasks, { id: uuid(), title: this.state.subtask, status: 0 }],
             subtask: ''
         });
     };
@@ -109,9 +109,7 @@ export default class AddItemModal extends Component {
                         <div id='add-subtasks-row'>
                             <Form.Control placeholder='Sub-Task' id='add-subtasks-input' value={this.state.subtask} onChange={this.handleSubtaskChange} />
                             <div className='small-spacer'></div>
-                            <Card id='add-subtasks-btn' onClick={this.addSubTask}>
-                                <span>Add a Sub-Task +</span>
-                            </Card>
+                            <Button variant='outline-secondary' id='add-subtasks-btn' onClick={this.addSubTask}>Add a Sub-Task +</Button>
                         </div>
                         <ListGroup id='add-subtasks-list'>
                             {this.state.subtasks.map((item) => {
