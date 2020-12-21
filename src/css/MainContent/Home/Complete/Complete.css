@@ -30,6 +30,11 @@
     flex-direction: row;
     align-items: baseline;
 }
+.complete-item-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 /* SubComplete Item */
 .subcomplete-item{

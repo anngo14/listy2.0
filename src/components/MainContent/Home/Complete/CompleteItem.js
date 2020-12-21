@@ -2,10 +2,10 @@ import React from 'react'
 import { Accordion, Card, Button } from 'react-bootstrap'
 
 export default function CompleteItem(props) {
-    let deleteItem = () => {
-        let copy = props.item;
-        copy.status = 0;
-        props.delete(copy);
+    let markIncomplete = () => {
+       let copy = props.item;
+       copy.status = 0;
+       props.complete(copy);
     }
     let timeDiff = () => {
         let dateCreated = props.item.dateCreated;
@@ -56,9 +56,9 @@ export default function CompleteItem(props) {
                     return (
                         <div className='subcomplete-item' key={sub.id}>
                             <div className='subcomplete-header'>
-                            <input type='checkbox'/>
-                                <div className='small-spacer'></div>
-                                <span>{sub.title}</span>
+                            <input type='checkbox' checked={sub.status === 1 ? true : false} />
+                            <div className='small-spacer'></div>
+                            <span>{sub.title}</span>
                             </div>
                         </div>
                     )
@@ -66,14 +66,27 @@ export default function CompleteItem(props) {
             </div> 
         )
     }
+    let priority;
+    if(props.item.priority === 0){
+        priority = <div className='list-item-priority' style={{backgroundColor: '#EBEDEF'}}></div>
+    } else if(props.item.priority === 1){
+        priority = <div className='list-item-priority' style={{backgroundColor: '#93D8EE'}}></div>
+    } else{
+        priority = <div className='list-item-priority' style={{backgroundColor: '#FE7979'}}></div>
+    }
     return (
         <Card>
             <Accordion.Toggle className='complete-item-header' as={Card.Body} eventKey={props.item.id}>
-                <div>
-                    <h3>{props.item.title}</h3>
-                    <span>{props.item.dateCompleted}</span>
+                <div className='complete-item-content'>
+                    {priority}
+                    <div className='small-spacer'></div>
+                    <div className='small-spacer'></div>
+                    <div>
+                        <h3>{props.item.title}</h3>
+                        <span>{props.item.dateCompleted}</span>
+                    </div>
                 </div>
-                <Button variant='outline-secondary' onClick={deleteItem}>Mark Incomplete</Button>
+                <Button variant='outline-secondary' onClick={markIncomplete}>Mark Incomplete</Button>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.item.id}>
                 <Card.Body>

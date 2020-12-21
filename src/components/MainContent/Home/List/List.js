@@ -7,13 +7,7 @@ import AddItemModal from './AddItemModal'
 export default class List extends Component {
     state = {
         addModal: false,
-        list: []
-    }
-    getIndex(item){
-        for(let i = 0; i < this.state.list.length; i++){
-            if(this.state.list[i].id === item.id) return i;
-        }
-        return -1;
+        list: this.props.list
     }
     showAddModal = () => {
         this.setState({
@@ -25,31 +19,17 @@ export default class List extends Component {
             addModal: false
         });
     }
-    addToList = (item) => {
-        this.setState({
-            list: [...this.state.list, item]
-        });
+    addItem = (item) => {
+        this.props.add(item, 0);
         this.hideAddModal();
     }
-    deleteFromList = (item) => {
-        let copy = this.state.list;
-        let index = this.getIndex(item);
-        if(index === -1) return;
-        copy.splice(index, 1);
-        this.setState({
-            list: copy
-        });
+    updateItem = (item) => {
+        this.props.update(item, 0);
     }
-    updateList = (item) => {
-        let copy = this.state.list;
-        let index = this.getIndex(item);
-        if(index === -1) return;
-        copy[index] = item;
-        this.setState({
-            list: copy
-        });
+    deleteItem = (item) => {
+        this.props.delete(item, 0);
     }
-    complete = (item) => {
+    markComplete = (item) => {
         let d = new Date();
         let month = d.getMonth() + 1;
         let date = d.getDate();
@@ -57,9 +37,21 @@ export default class List extends Component {
         item.dateCompleted = month + '/' + date + '/' + year;
         item.timeCompleted = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
         item.status = 1;
-        this.deleteFromList(item);
+        this.props.switch(item, 0);
     }
     render() {
+        let listContent;
+        if(this.state.list.length > 0){
+            listContent = (this.state.list.map((item) => {
+                return <ListItem key={item.id} item={item} delete={this.deleteItem} update={this.updateItem} complete={this.markComplete}/>
+            }))
+        } else{
+            listContent = (
+                <div>
+                    No Items Found!
+                </div>
+            )
+        }
         return (
             <Card className='list-container'>
                 <Card.Header id='list-header'>
@@ -67,11 +59,9 @@ export default class List extends Component {
                     <span id='list-add-btn' onClick={this.showAddModal} >Add +</span>
                 </Card.Header>
                 <Accordion className='list-content-container'>
-                    {this.state.list.map((item) => {
-                        return <ListItem key={item.id} item={item} delete={this.deleteFromList} update={this.updateList} complete={this.complete}/>
-                    })}
+                    {listContent}
                 </Accordion>
-                <AddItemModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addToList}/>
+                <AddItemModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addItem} />
             </Card>
         )
     }

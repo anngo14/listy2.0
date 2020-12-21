@@ -84,3 +84,8 @@
 .list-actions > span:hover{
     text-decoration: underline;
 }
+.list-item-priority{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
