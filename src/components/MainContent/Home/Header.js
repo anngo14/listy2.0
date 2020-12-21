@@ -5,7 +5,8 @@ import '../../../css/MainContent/Home/Header.css'
 export default class Header extends Component {
     months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     state = {
-        date: new Date()
+        date: new Date(),
+        planModal: false
     }
 
     componentDidMount(){
@@ -16,7 +17,6 @@ export default class Header extends Component {
     componentWillUnmount(){
         clearInterval(this.clockInterval);
     }
-
     tick(){
         this.setState({
             date: new Date()
@@ -32,7 +32,6 @@ export default class Header extends Component {
                 </div>
                 <div className='home-header-content'>
                     <span id='home-header-time'>{this.state.date.toLocaleTimeString()}</span>
-                    <span id='home-header-plan'>Plan Your Day</span>
                 </div>
             </Card>
         )

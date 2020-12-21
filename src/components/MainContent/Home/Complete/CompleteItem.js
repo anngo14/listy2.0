@@ -56,7 +56,7 @@ export default function CompleteItem(props) {
                     return (
                         <div className='subcomplete-item' key={sub.id}>
                             <div className='subcomplete-header'>
-                            <input type='checkbox' checked={sub.status === 1 ? true : false} />
+                            <input type='checkbox' checked={sub.status === 1 ? true : false} readOnly={true} />
                             <div className='small-spacer'></div>
                             <span>{sub.title}</span>
                             </div>

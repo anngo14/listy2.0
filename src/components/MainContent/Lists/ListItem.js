@@ -2,6 +2,9 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 
 export default function ListItem(props) {
+    let switchList = () => {
+        props.switch(props.item);
+    }
     return (
         <Card className='list-item-container'>
             <div className='list-header'>
@@ -13,7 +16,12 @@ export default function ListItem(props) {
                 <div className='small-spacer'></div>
                 <div className='small-spacer'></div>
                 <div className='small-spacer'></div>
-                <span>Select</span>
+                <span onClick={switchList}>Select</span>
+                <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
+                <div className='small-spacer'></div>
+                <span>Delete</span>
             </div>
         </Card>
     )

@@ -68,15 +68,12 @@ export default class Home extends Component {
     }
     switchToList = (item, type) => {
         let index = -1;
-        let copy = [];
         let dest = -1;
         if(type === 0){
             index = this.getIndex(item, this.state.list);
-            copy = this.state.complete;
             dest = 1;
         } else if(type === 1){
             index = this.getIndex(item, this.state.complete);
-            copy = this.state.list;
             dest = 0;
         }
         if(index === -1) return;

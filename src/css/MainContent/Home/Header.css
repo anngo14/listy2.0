@@ -17,6 +17,7 @@
 .home-header-content{
     position: relative;
     width: 100%;
+    z-index: 1;
 }
 #home-header-time{
     position: absolute;
