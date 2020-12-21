@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import '../../../css/MainContent/Lists/Lists.css'
 import AddListModal from './AddListModal';
 import ListItem from './ListItem';
@@ -39,7 +40,7 @@ export default class Lists extends Component {
                             <h2>{this.props.selected.title}</h2>
                         </div>
                         <div className='list-actions'>
-                            <span onClick={this.linkHome}>More Info</span>
+                            <Link to='/home' onClick={this.linkHome}>More Info</Link>
                         </div>
                     </Card>
                 </div>

@@ -7,7 +7,8 @@ import List from './List/List'
 
 export default class Home extends Component {
     state = {
-        list: [
+        selected: this.props.list,
+        list: this.props.list !== undefined ? this.props.list.list : [
             {
                 id: 5,
                 title: 'Task 1', 
@@ -18,7 +19,7 @@ export default class Home extends Component {
                 status: 0
             }
         ],
-        complete: [
+        complete: this.props.list !== undefined ? this.props.list.complete : [
             {
                 id: 1,
                 title: 'Task 1',
@@ -134,7 +135,7 @@ export default class Home extends Component {
             <div className='home-container'>
                 <Header />
                 <div className='home-content'>
-                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} />
+                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.props.list.title}/>
                     <Complete list={this.state.complete} switch={this.switchToList} />
                 </div>
             </div>

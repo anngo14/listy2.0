@@ -143,10 +143,10 @@ export default class MainContent extends Component {
         return -1;
     }
     goToList = () => {
+        console.log(this.state.selected);
         console.log("go to home");
     }
     switchList = (list) => {
-        console.log(list);
         this.setState({
             selected: list
         });
@@ -156,7 +156,9 @@ export default class MainContent extends Component {
             <div className='main-content-container'>
                 <Switch>
                     <Route path='/' exact><Redirect to='/home' /></Route>
-                    <Route path='/home' exact component={Home} />
+                    <Route path='/home' exact>
+                        <Home list={this.state.selected} />
+                    </Route>
                     <Route path='/lists' exact>
                         <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} link={this.goToList} />
                     </Route>

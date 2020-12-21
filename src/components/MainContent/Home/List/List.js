@@ -55,7 +55,7 @@ export default class List extends Component {
         return (
             <Card className='list-container'>
                 <Card.Header id='list-header'>
-                    <h1>List Title</h1>
+                    <h1>{this.props.title}</h1>
                     <span id='list-add-btn' onClick={this.showAddModal} >Add +</span>
                 </Card.Header>
                 <Accordion className='list-content-container'>
