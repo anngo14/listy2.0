@@ -9,9 +9,6 @@ export default class Lists extends Component {
     state = {
         addModal: false
     };
-    linkHome = () => {
-        this.props.link();
-    }
     switchList = (list) => {
         this.props.switch(list);
     }
@@ -40,7 +37,7 @@ export default class Lists extends Component {
                             <h2>{this.props.selected.title}</h2>
                         </div>
                         <div className='list-actions'>
-                            <Link to='/home' onClick={this.linkHome}>More Info</Link>
+                            <Link to='/home'>More Info</Link>
                         </div>
                     </Card>
                 </div>

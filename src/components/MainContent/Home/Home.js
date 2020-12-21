@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import uuid from 'react-uuid'
+import { Redirect } from 'react-router-dom'
 import '../../../css/MainContent/Home/Home.css'
 import Complete from './Complete/Complete'
 import Header from './Header'
@@ -8,58 +8,8 @@ import List from './List/List'
 export default class Home extends Component {
     state = {
         selected: this.props.list,
-        list: this.props.list !== undefined ? this.props.list.list : [
-            {
-                id: 5,
-                title: 'Task 1', 
-                subtasks: [],
-                dateCreated: '12/19/2020',
-                timeCreated: '14:32:02',
-                priority: 1,
-                status: 0
-            }
-        ],
-        complete: this.props.list !== undefined ? this.props.list.complete : [
-            {
-                id: 1,
-                title: 'Task 1',
-                subtasks: [],
-                dateCreated: '12/17/2020',
-                timeCreated: '00:23:45', 
-                dateCompleted: '12/17/2020',
-                timeCompleted: '00:26:45', 
-                priority: 0,
-                status: 1
-            },
-            {
-                id: 2,
-                title: 'Task 2',
-                subtasks: [
-                    {
-                        id: uuid(),
-                        title: 'Subtask 1',
-                        status: 1
-                    }
-                ],
-                dateCreated: '12/10/2020',
-                timeCreated: '23:10:05', 
-                dateCompleted: '12/12/2020',
-                timeCompleted: '00:26:45', 
-                priority: 1,
-                status: 1
-            },
-            {
-                id: 3,
-                title: 'Task 3',
-                subtasks: [],
-                dateCreated: '12/05/2020',
-                timeCreated: '05:13:58', 
-                dateCompleted: '12/06/2020',
-                timeCompleted: '00:26:45', 
-                priority: 2,
-                status: 1
-            }
-        ]
+        list: this.props.list === null ? []: this.props.list.list,
+        complete: this.props.list === null ? []: this.props.list.complete
     }
     getIndex(item, array){
         for(let i = 0; i < array.length; i++){
@@ -120,22 +70,34 @@ export default class Home extends Component {
         this.setList(copy, type);
     }
     setList(list, type){
+        let copy = this.state.selected;
         if(type === 0){
             this.setState({
                 list: list
             });
+            copy.list = this.state.list;
         } else if(type === 1){
             this.setState({
                 complete: list
             });
+            copy.complete = this.state.complete;
         }
+        this.setState({
+            selected: copy
+        });
+        this.props.update(this.state.selected);
     }
     render() {
+        let redirect;
+        if(this.props.list === undefined || this.props.list === null){
+            redirect = <Redirect to='/lists' />
+        }
         return (
             <div className='home-container'>
+                {redirect}
                 <Header />
                 <div className='home-content'>
-                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.props.list.title}/>
+                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.state.selected !== null ? this.state.selected.title: null}/>
                     <Complete list={this.state.complete} switch={this.switchToList} />
                 </div>
             </div>

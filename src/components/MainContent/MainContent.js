@@ -136,19 +136,30 @@ export default class MainContent extends Component {
             }
         ]
     }
-    getIndex(list){
+    getListIndex(id){
         for(let i = 0; i < this.state.lists.length; i++){
-            if(this.state.lists[i].id === list.id) return i;
+            if(this.state.lists[i].id === id) return i;
         }
         return -1;
-    }
-    goToList = () => {
-        console.log(this.state.selected);
-        console.log("go to home");
     }
     switchList = (list) => {
         this.setState({
             selected: list
+        });
+    }
+    updateList = (list) => {
+        let index = this.getListIndex(list.id);
+        let copy = this.state.lists;
+        copy[index] = list;
+        this.setState({
+            lists: copy
+        });
+    }
+    addToList = (list) => {
+        let copy = this.state.lists;
+        copy.push(list);
+        this.setState({
+            lists: copy
         });
     }
     render() {
@@ -157,10 +168,10 @@ export default class MainContent extends Component {
                 <Switch>
                     <Route path='/' exact><Redirect to='/home' /></Route>
                     <Route path='/home' exact>
-                        <Home list={this.state.selected} />
+                        <Home list={this.state.selected} update={this.updateList} />
                     </Route>
                     <Route path='/lists' exact>
-                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} link={this.goToList} />
+                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} />
                     </Route>
                     <Route path='/settings' exact component={Settings} />
                     <Route path='/about' exact component={About} />
