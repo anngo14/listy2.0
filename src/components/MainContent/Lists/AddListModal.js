@@ -1,27 +1,140 @@
 import React from 'react'
+import { Component } from 'react'
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap'
+import uuid from 'react-uuid'
 
-export default function AddListModal(props) {
-    return (
-        <Modal show={props.show} onHide={props.onHide}>
-            <Modal.Header closeButton>
-                <Modal.Title>
-                    Add a New List
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Form.Control placeholder='Title' size='lg'></Form.Control>
-                </Form>
-                <div>
-                    <Form.Control placeholder='Task'></Form.Control>
-                    <Button variant='outline-secondary'>Add a List Task +</Button>
-                </div>
-                <ListGroup>
-
-                </ListGroup>
-                <Button>Submit</Button>
-            </Modal.Body>
-        </Modal>
-    )
+export default class AddListModal extends Component {
+    state = {
+        title: '',
+        priority: 1,
+        task: '',
+        list: []
+    };
+    addToList = (e) => {
+        e.preventDefault();
+        this.props.add({
+            id: uuid(),
+            title: this.state.title,
+            list: this.state.list,
+            complete: []
+        });
+        this.setState({
+            title: '',
+            priority: 1,
+            task: '',
+            list: []
+        });
+        this.props.onHide();
+    }
+    handleTitle = (e) => {
+        this.setState({
+            title: e.target.value
+        });
+    }
+    handlePriority = (e) => {
+        this.setState({
+            priority: e.target.value
+        });
+    }
+    handleTask = (e) => {
+        this.setState({
+            task: e.target.value
+        });
+    }
+    addTask = (e) => {
+        e.preventDefault();
+        let d = new Date();
+        let copy = this.state.list;
+        let task = {
+            id: uuid(),
+            priority: this.state.priority,
+            title: this.state.task,
+            subtasks: [],
+            dateCreated: (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
+            timeCreated: d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(),
+            status: 0
+        };
+        copy.push(task);
+        this.setState({
+            task: '',
+            priority: 1,
+            list: copy
+        });
+    }
+    deleteTask = (task) => {
+        let copy = this.state.list;
+        let index = this.getIndex(task.id);
+        if(index === -1) return;
+        copy.splice(index, 1);
+        this.setState({
+            list: copy
+        });
+    }
+    updateTask = (task) => {
+        let copy = this.state.list;
+        let index = this.getIndex(task.id);
+        if(index === -1) return;
+        copy[index] = task;
+        this.setState({
+            list: copy
+        });
+    }
+    getIndex(id){
+        for(let i = 0; i < this.state.list.length; i++){
+            if(this.state.list[i].id === id) return i;
+        }
+        return -1;
+    }
+    render(){
+        return (
+            <Modal show={this.props.show} onHide={this.props.onHide} size='lg'>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Add a New List
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Control placeholder='Title' size='lg' value={this.state.title} onChange={this.handleTitle} />
+                    </Form>
+                    <div className='add-list-subheader'>
+                        <h4>Tasks</h4>
+                    </div>
+                    <div className='add-list-row'>
+                        <Form.Control as='select' value={this.state.priority} onChange={this.handlePriority} className='add-list-priority'>
+                            <option value='2'>High</option>
+                            <option value='1'>Normal</option>
+                            <option value='0'>Low</option>
+                        </Form.Control>
+                        <div className='small-spacer'></div>
+                        <Form.Control placeholder='Task' value={this.state.task} onChange={this.handleTask} className='add-list-input' />
+                        <div className='small-spacer'></div>
+                        <Button variant='outline-secondary' onClick={this.addTask} className='add-list-btn'>Add a List Task +</Button>
+                    </div>
+                    <ListGroup className='add-list-task-container'>
+                        {this.state.list.map((item) => {
+                            let deleteItem = (e) => {
+                                e.preventDefault();
+                                this.deleteTask(item);
+                            };
+                            let update = (e) => {
+                                let copy = item;
+                                copy.title = e.target.value;
+                                this.updateTask(copy);
+                            };
+                            return (
+                                <div key={item.id} className='add-list-row add-list-task'>
+                                    <Form.Control value={item.title} onChange={update} />
+                                    <div className='small-spacer'></div>
+                                    <Button onClick={deleteItem} variant='danger'>Delete</Button>
+                                </div>
+                            )
+                        })}
+                    </ListGroup>
+                    <Button onClick={this.addToList}>Submit</Button>
+                </Modal.Body>
+            </Modal>
+        )
+    }
+    
 }

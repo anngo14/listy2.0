@@ -9,9 +9,6 @@ export default class Lists extends Component {
     state = {
         addModal: false
     };
-    switchList = (list) => {
-        this.props.switch(list);
-    }
     showAddModal = () => {
         this.setState({
             addModal: true
@@ -21,6 +18,15 @@ export default class Lists extends Component {
         this.setState({
             addModal: false
         });
+    }
+    switchList = (list) => {
+        this.props.switch(list);
+    }
+    deleteList = (list) => {
+        this.props.delete(list);
+    }
+    addToList = (list) => {
+        this.props.add(list);
     }
 
     render() {
@@ -34,7 +40,7 @@ export default class Lists extends Component {
                     <Card id='selected-list'>
                         <div id='selected-list-header'>
                             <span>Currently Selected</span>
-                            <h2>{this.props.selected.title}</h2>
+                            <h2>{this.props.selected !== null ? this.props.selected.title: "Empty!"}</h2>
                         </div>
                         <div className='list-actions'>
                             <Link to='/home'>More Info</Link>
@@ -43,11 +49,11 @@ export default class Lists extends Component {
                 </div>
                 <div id='list-grid'>
                     {this.props.lists.map((item) => {
-                        return <ListItem item={item} key={item.id} switch={this.switchList}/>
+                        return <ListItem item={item} key={item.id} switch={this.switchList} delete={this.deleteList} />
                     })}
                 </div>
                 <div style={{height: '5em'}}></div>
-                <AddListModal show={this.state.addModal} onHide={this.hideAddModal} />
+                <AddListModal show={this.state.addModal} onHide={this.hideAddModal} add={this.addToList} />
             </div>
         )
     }

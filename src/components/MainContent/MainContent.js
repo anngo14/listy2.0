@@ -162,6 +162,23 @@ export default class MainContent extends Component {
             lists: copy
         });
     }
+    deleteFromList = (list) => {
+        let copy = this.state.lists;
+        let index = this.getListIndex(list.id);
+        let next = index + 1;
+        if(next === this.state.lists.length) next = 0;
+        if(index === -1) return;
+        this.switchList(copy[next]);
+        copy.splice(index, 1);
+        this.setState({
+            lists: copy
+        });
+        if(this.state.lists.length === 0){
+            this.setState({
+                selected: null
+            });
+        }
+    }
     render() {
         return (
             <div className='main-content-container'>
@@ -171,7 +188,7 @@ export default class MainContent extends Component {
                         <Home list={this.state.selected} update={this.updateList} />
                     </Route>
                     <Route path='/lists' exact>
-                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} />
+                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} add={this.addToList} delete={this.deleteFromList} />
                     </Route>
                     <Route path='/settings' exact component={Settings} />
                     <Route path='/about' exact component={About} />

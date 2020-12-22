@@ -32,6 +32,9 @@ export default class ListItem extends Component {
             return 2;
         }
     }
+    deleteList = () => {
+        this.props.delete(this.props.item);
+    }
     render(){
         let listContent;
         if(this.props.item.list.length > 0){
@@ -62,10 +65,41 @@ export default class ListItem extends Component {
                 </div>
             )
         }
+        let completeContent;
+        if(this.props.item.complete.length > 0){
+            completeContent = (
+                this.props.item.complete.map((item) => {
+                    let priority;
+                    if(item.priority === 0){
+                        priority = <div className='list-info-priority' style={{backgroundColor: '#EBEDEF'}}></div>
+                    } else if(item.priority === 1){
+                        priority = <div className='list-info-priority' style={{backgroundColor: '#93D8EE'}}></div>
+                    } else{
+                        priority = <div className='list-info-priority' style={{backgroundColor: '#FE7979'}}></div>
+                    }
+                    return (
+                        <div className='list-info-item' key={item.id}>
+                            {priority}
+                            <div className='small-spacer'></div>
+                            <div className='small-spacer'></div>
+                            <h5>{item.title}</h5>
+                        </div>
+                    )
+                })
+            )
+        } else{
+            completeContent = (
+                <div>
+                    No Items Found!
+                </div>
+            )
+        }
         return (
             <Card className='list-item-container'>
                 <div className='list-header'>
                     <h2>{this.props.item.title}</h2>
+                    <span style={{fontWeight: '200'}}>{this.props.item.list.length} In-Progress</span>
+                    <span style={{fontWeight: '200'}}>{this.props.item.complete.length} Complete</span>
                 </div>
                 <div className='list-actions'>
                     <span onClick={this.toggle}>Info</span>
@@ -78,7 +112,7 @@ export default class ListItem extends Component {
                     <div className='small-spacer'></div>
                     <div className='small-spacer'></div>
                     <div className='small-spacer'></div>
-                    <span>Delete</span>
+                    <span onClick={this.deleteList}>Delete</span>
                 </div>
                 <div className='list-item-info' slide={this.getAnimationState()}>
                     <div className='list-item-info-header'>
@@ -86,7 +120,10 @@ export default class ListItem extends Component {
                     </div>
                     <h2>{this.props.item.title}</h2>
                     <div style={{height: '1em'}}></div>
+                    <h6>In-Progress</h6>
                     {listContent}
+                    <h6>Completed</h6>
+                    {completeContent}
                 </div>
             </Card>
         )

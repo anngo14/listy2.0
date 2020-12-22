@@ -60,6 +60,7 @@
     margin-top: 1em;
     margin-left: 1em;
     overflow-y: hidden;
+    background-color: #F2F6FA;
 }
 .list-header{
     display: flex;
@@ -78,6 +79,7 @@
     min-height: 2em;
     width: 100%;
     border-top: 1px solid #c7c7c7;
+    background-color: white;
 }
 .list-actions > span{
     cursor: pointer;
@@ -96,6 +98,7 @@
     padding: 1em;
     width: 100%;
     min-height: 20em;
+    overflow-y: auto;
     background-color: white;
 }
 .list-item-info[slide='1']{
@@ -132,4 +135,30 @@
 @keyframes slideDown{
     0%{ transform: translateY(-100%); }
     100%{ transform: translateY(0%); }
+}
+
+/* Add List Modal */
+.add-list-subheader{
+    margin-top: 2em;
+}
+.add-list-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.add-list-priority{
+    width: 8em;
+}
+.add-list-btn{
+    width: 15em;
+}
+.add-list-task-container{
+    margin-top: 1em;
+    margin-bottom: 2em;
+    height: 20em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.add-list-task{
+    margin-top: 1em;
 }
