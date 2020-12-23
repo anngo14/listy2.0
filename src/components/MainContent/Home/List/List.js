@@ -47,7 +47,7 @@ export default class List extends Component {
             }))
         } else{
             listContent = (
-                <div>
+                <div className='empty-container'>
                     No Items Found!
                 </div>
             )

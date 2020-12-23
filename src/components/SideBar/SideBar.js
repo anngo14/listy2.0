@@ -1,49 +1,39 @@
 import React from 'react'
+import { Link, Route, Switch } from 'react-router-dom';
 import '../../css/SideBar/SideBar.css'
-import Avatar from './Avatar'
-import MenuItem from './MenuItem'
+import Login from './Login';
+import Menu from './Menu';
+import Register from './Register';
+import { FiLogOut } from "react-icons/fi";
 
-export default function sidebar() {
-    let menu = [
-        {
-            id: 1,
-            image: '',
-            name: 'Home',
-            link: '/home'
-        },
-        {
-            id: 2,
-            image: '',
-            name: 'Lists',
-            link: '/lists'
-        },
-        {
-            id: 3,
-            image: '',
-            name: 'Settings',
-            link: '/settings'
-        },
-        {
-            id: 4,
-            image: '',
-            name: 'About',
-            link: '/about'
-        }
-    ];
+export default function sidebar(props) {
+    let logout;
+    if(props.loggedIn){
+        logout = (
+        <Link to='/login'>
+            <FiLogOut />
+        </Link>
+        )
+    } 
     return (
         <div className='sidebar-container'>
             <div className='header-container'>
                 <div className='header-logo-container'>
-                    <span>menu</span>
-                    <div className='small-spacer'></div>
-                    <h2>Listy</h2>
+                    <h2 style={{cursor: 'default'}}>Listy</h2>
                 </div>
-                <span>logout</span>
+                {logout}
             </div>
-            <Avatar user='John Smith'/>
-            {menu.map((item) => {
-                return <MenuItem item={item} key={item.id} />
-            })}
+            <Switch>
+                <Route path='/register' exact>
+                    <Register />
+                </Route>
+                <Route path='/login' exact>
+                    <Login />
+                </Route>
+                <Route path={['/home', '/lists', '/settings', '/about']}>
+                    <Menu />
+                </Route>
+            </Switch>
         </div>
     )
 }

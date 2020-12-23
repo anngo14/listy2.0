@@ -11,7 +11,7 @@ export default class App extends Component {
     return (
       <div className='app-container'>
         <BrowserRouter>
-          <SideBar />
+          <SideBar loggedIn={true}/>
           <MainContent />
         </BrowserRouter>
       </div>

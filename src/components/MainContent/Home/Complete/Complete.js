@@ -20,7 +20,7 @@ export default class Complete extends Component {
             )
         } else{
             listContent = (
-                <div>
+                <div className='empty-container'>
                     No Items Found!
                 </div>
             )

@@ -103,15 +103,11 @@ export default class ListItem extends Component {
                 </div>
                 <div className='list-actions'>
                     <span onClick={this.toggle}>Info</span>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
+                    <div className='horizontal-spacer'></div>
+                    <div className='horizontal-spacer'></div>
                     <span onClick={this.switchList}>Select</span>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
-                    <div className='small-spacer'></div>
+                    <div className='horizontal-spacer'></div>
+                    <div className='horizontal-spacer'></div>
                     <span onClick={this.deleteList}>Delete</span>
                 </div>
                 <div className='list-item-info' slide={this.getAnimationState()}>
@@ -122,7 +118,7 @@ export default class ListItem extends Component {
                     <div style={{height: '1em'}}></div>
                     <h6>In-Progress</h6>
                     {listContent}
-                    <h6>Completed</h6>
+                    <h6 style={{marginTop: '1em'}}>Completed</h6>
                     {completeContent}
                 </div>
             </Card>

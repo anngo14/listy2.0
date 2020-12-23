@@ -7,7 +7,10 @@ export default function About() {
             <h1 className='content-title'>About</h1>
             <div id='about-content'>
                 <p>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    Listy is a To Do List application that was built using React. As a common starter project for most budding developers, Listy takes the concept of a To-Do List and is reimagined with my own image. 
+                </p>
+                <p>
+                    Most web applications with simple functionality are not going to be visited often or for long periods of time. Taking this into account I wanted to provide the user a really quick glimpses of information that would be useful. For example, the header on the Home page was meant to grab the user's attention quickly to tell the user what general time of day it is by using a duller color for other elements on the page.
                 </p>
             </div>
         </div>

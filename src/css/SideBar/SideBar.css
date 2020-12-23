@@ -1,3 +1,23 @@
+/* SideBar */
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 20em;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #17202A;
+    color: whitesmoke;
+}
+/* Menu */
+.menu-container{
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+}
 /* Header */
 .header-container{
     display: flex;
@@ -12,7 +32,6 @@
     flex-direction: row;
     align-items: center;
 }
-
 /* Avatar */
 .avatar{
     display: flex;
@@ -28,7 +47,6 @@
     border-radius: 50%;
     border: 1px solid white;
 }
-
 /* Menu Item */
 .menu-item{
     display: flex;
@@ -45,19 +63,27 @@
 .menu-item-title{
     margin-left: 5px;
 }
+/* Login */
+.login-container{
+    padding: 2em;
+}
+.login-content{
+    margin-top: 2em;
+}
+/* Register */
+.register-container{
+    padding: 2em;
+}
+.register-content{
+    margin-top: 2em;
+}
 
-/* SideBar */
-.sidebar-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 20em;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    background-color: #17202A;
-    color: whitesmoke;
+.login-redirect{
+    margin-top: 1em;
+}
+.redirect-link{
+    color: white;
+}
+.redirect-link:hover{
+    text-decoration: none;
 }
