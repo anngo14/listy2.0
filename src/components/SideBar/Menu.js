@@ -4,10 +4,10 @@ import { FaHome, FaList } from "react-icons/fa";
 import { IoSettings, IoInformationCircle } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
-export default function Menu() {
+export default function Menu(props) {
     return (
         <div className='menu-container'>
-            <Avatar user='John Smith'/>
+            <Avatar user={props.user.name} />
             <Link to='/home' className='menu-item'>
                 <FaHome />
                 <span className='menu-item-title'>Home</span>

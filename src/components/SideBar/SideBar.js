@@ -31,7 +31,7 @@ export default function sidebar(props) {
                     <Login />
                 </Route>
                 <Route path={['/home', '/lists', '/settings', '/about']}>
-                    <Menu />
+                    <Menu user={props.user}/>
                 </Route>
             </Switch>
         </div>

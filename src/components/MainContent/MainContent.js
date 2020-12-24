@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import uuid from 'react-uuid'
 import '../../css/MainContent/MainContent.css'
 import About from './About/About'
 import Home from './Home/Home'
@@ -15,126 +14,7 @@ export default class MainContent extends Component {
             complete: [],
             list: []
         },
-        lists: [
-            {
-                id: uuid(),
-                title: 'List 1',
-                list: [
-                    {
-                        id: uuid(),
-                        title: 'Task 1', 
-                        subtasks: [],
-                        dateCreated: '12/19/2020',
-                        timeCreated: '14:32:02',
-                        priority: 1,
-                        status: 0
-                    }
-                ],
-                complete: [
-                    {
-                        id: uuid(),
-                        title: 'Task 1',
-                        subtasks: [],
-                        dateCreated: '12/17/2020',
-                        timeCreated: '00:23:45', 
-                        dateCompleted: '12/17/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 0,
-                        status: 1
-                    },
-                    {
-                        id: uuid(),
-                        title: 'Task 2',
-                        subtasks: [
-                            {
-                                id: uuid(),
-                                title: 'Subtask 1',
-                                status: 1
-                            }
-                        ],
-                        dateCreated: '12/10/2020',
-                        timeCreated: '23:10:05', 
-                        dateCompleted: '12/12/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 1,
-                        status: 1
-                    },
-                    {
-                        id: uuid(),
-                        title: 'Task 3',
-                        subtasks: [],
-                        dateCreated: '12/05/2020',
-                        timeCreated: '05:13:58', 
-                        dateCompleted: '12/06/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 2,
-                        status: 1
-                    }
-                ]
-            },
-            {
-                id: uuid(),
-                title: 'List 2',
-                list: [
-                    {
-                        id: uuid(),
-                        title: 'Task 1', 
-                        subtasks: [],
-                        dateCreated: '12/19/2020',
-                        timeCreated: '14:32:02',
-                        priority: 1,
-                        status: 0
-                    }
-                ],
-                complete: [
-                    {
-                        id: uuid(),
-                        title: 'Task 1',
-                        subtasks: [],
-                        dateCreated: '12/17/2020',
-                        timeCreated: '00:23:45', 
-                        dateCompleted: '12/17/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 0,
-                        status: 1
-                    },
-                    {
-                        id: uuid(),
-                        title: 'Task 2',
-                        subtasks: [
-                            {
-                                id: uuid(),
-                                title: 'Subtask 1',
-                                status: 1
-                            }
-                        ],
-                        dateCreated: '12/10/2020',
-                        timeCreated: '23:10:05', 
-                        dateCompleted: '12/12/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 1,
-                        status: 1
-                    },
-                    {
-                        id: uuid(),
-                        title: 'Task 3',
-                        subtasks: [],
-                        dateCreated: '12/05/2020',
-                        timeCreated: '05:13:58', 
-                        dateCompleted: '12/06/2020',
-                        timeCompleted: '00:26:45', 
-                        priority: 2,
-                        status: 1
-                    }
-                ]
-            }, 
-            {
-                id: 1,
-                title: 'Test List',
-                complete: [],
-                list: []
-            }
-        ]
+        lists: this.props.user.lists
     }
     getListIndex(id){
         for(let i = 0; i < this.state.lists.length; i++){
@@ -154,6 +34,7 @@ export default class MainContent extends Component {
         this.setState({
             lists: copy
         });
+        this.props.updateList(copy);
     }
     addToList = (list) => {
         let copy = this.state.lists;
@@ -161,6 +42,7 @@ export default class MainContent extends Component {
         this.setState({
             lists: copy
         });
+        this.props.updateList(copy);
     }
     deleteFromList = (list) => {
         let copy = this.state.lists;
@@ -178,6 +60,10 @@ export default class MainContent extends Component {
                 selected: null
             });
         }
+        this.props.updateList(copy);
+    }
+    updateName = (name) => {
+        this.props.updateName(name);
     }
     render() {
         return (
@@ -190,7 +76,9 @@ export default class MainContent extends Component {
                     <Route path='/lists' exact>
                         <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} add={this.addToList} delete={this.deleteFromList} />
                     </Route>
-                    <Route path='/settings' exact component={Settings} />
+                    <Route path='/settings' exact>
+                        <Settings user={this.props.user} updateName={this.updateName}/>
+                    </Route>
                     <Route path='/about' exact component={About} />
                 </Switch>
             </div>
