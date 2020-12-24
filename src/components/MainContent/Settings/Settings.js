@@ -6,11 +6,13 @@ import ConfirmModal from './ConfirmModal';
 
 export default class Settings extends Component {
     state = {
+        original: this.props.user.name,
         name: this.props.user.name,
         newPassword: '',
         confirmPassword: '',
         confirmModal: false,
-        confirmModalMsg: ''
+        confirmModalMsg: '',
+        confirmModalType: null
     }
     showConfirmModal = () => {
         this.setState({
@@ -40,19 +42,38 @@ export default class Settings extends Component {
     updateName = () => {
         let name = this.state.name;
         this.props.updateName(name);
+        this.setState({
+            original: name
+        });
     }
     deleteAccount = () => {
         this.setState({
             confirmModal: true,
-            confirmModalMsg: 'Are you sure you want to delete your account? This action cannot be undone.'
+            confirmModalMsg: 'Are you sure you want to delete your account? This action cannot be undone.',
+            confirmModalType: 'delete'
         });
     }
     saveSettings = () => {
         this.setState({
             confirmModal: true,
-            confirmModalMsg: 'Do you want to save these settings?'
+            confirmModalMsg: 'Do you want to save these settings?',
+            confirmModalType: 'save'
         });
-        this.updateName();
+    }
+    confirm = (state) => {
+        if(state){
+            if(this.state.confirmModalType === 'save'){
+                this.updateName();
+            } else if(this.state.confirmModalType === 'delete'){
+                
+            }
+        } else{
+            if(this.state.confirmModalType === 'save'){
+                this.setState({
+                    name: this.state.original
+                });
+            }
+        }
     }
     render(){
         return (
@@ -67,8 +88,6 @@ export default class Settings extends Component {
                                 <Form.Control as='select'>
                                     <option>Default</option>
                                     <option>Robot</option>
-                                    <option>3</option>
-                                    <option>4</option>
                                 </Form.Control>
                             </div>
                             <h4>Change Display Name</h4>
@@ -95,7 +114,7 @@ export default class Settings extends Component {
                     </div>
                 </div>
                 <Button onClick={this.saveSettings}>Save Changes</Button>
-                <ConfirmModal show={this.state.confirmModal} onHide={this.hideConfirmModal} msg={this.state.confirmModalMsg} />
+                <ConfirmModal show={this.state.confirmModal} onHide={this.hideConfirmModal} msg={this.state.confirmModalMsg} confirm={this.confirm} />
             </div>
         )
     }

@@ -7,6 +7,7 @@ import List from './List/List'
 
 export default class Home extends Component {
     state = {
+        card: false,
         selected: this.props.list,
         list: this.props.list === null ? []: this.props.list.list,
         complete: this.props.list === null ? []: this.props.list.complete
@@ -87,6 +88,16 @@ export default class Home extends Component {
         });
         this.props.update(this.state.selected);
     }
+    toggleCard = () => {
+        this.setState({
+            card: true
+        });
+        setTimeout(() => {
+            this.setState({
+                card: false
+            })
+        },400);
+    }
     render() {
         let redirect;
         if(this.props.list === undefined || this.props.list === null){
@@ -97,8 +108,8 @@ export default class Home extends Component {
                 {redirect}
                 <Header />
                 <div className='home-content'>
-                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.state.selected !== null ? this.state.selected.title: null}/>
-                    <Complete list={this.state.complete} switch={this.switchToList} />
+                    <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.state.selected !== null ? this.state.selected.title: null} toggleCard={this.toggleCard} />
+                    <Complete list={this.state.complete} switch={this.switchToList} card={this.state.card}/>
                 </div>
             </div>
         )

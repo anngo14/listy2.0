@@ -5,6 +5,7 @@ import About from './About/About'
 import Home from './Home/Home'
 import Lists from './Lists/Lists'
 import Settings from './Settings/Settings'
+import Error from './Error/Error'
 
 export default class MainContent extends Component {
     state = {
@@ -80,6 +81,9 @@ export default class MainContent extends Component {
                         <Settings user={this.props.user} updateName={this.updateName}/>
                     </Route>
                     <Route path='/about' exact component={About} />
+                    <Route path='/login' />
+                    <Route path='/register' />
+                    <Route component={Error} />
                 </Switch>
             </div>
         )

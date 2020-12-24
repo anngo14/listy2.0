@@ -5,10 +5,20 @@ import CompleteItem from './CompleteItem';
 
 export default class Complete extends Component {
     state = {
-        complete: this.props.list
+        complete: this.props.list,
     }
     complete = (item) => {
         this.props.switch(item, 1);
+    }
+    getAnimationState(){
+        const toggleState = this.props.card;
+        if(toggleState === true){
+            return 1;
+        } else if(toggleState === false){
+            return 0;
+        } else{
+            return 2;
+        }
     }
     render() {
         let listContent;
@@ -26,7 +36,7 @@ export default class Complete extends Component {
             )
         }
         return (
-            <Card className='complete-container'>
+            <Card className='complete-container' new={this.getAnimationState()}>
                 <div id='complete-header-container'>
                     <h1 id='complete-header'>Completed Tasks</h1>
                 </div>

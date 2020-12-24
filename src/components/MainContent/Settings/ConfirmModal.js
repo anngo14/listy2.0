@@ -2,6 +2,15 @@ import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
 export default function ConfirmModal(props) {
+    
+    let confirm = () => {
+        props.confirm(true);
+        props.onHide();
+    }
+    let cancel = () => {
+        props.confirm(false);
+        props.onHide();
+    }
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
@@ -13,8 +22,8 @@ export default function ConfirmModal(props) {
                 <span>{props.msg}</span>
             </Modal.Body>
             <Modal.Footer>
-                <Button>Confirm</Button>
-                <Button variant='danger'>Cancel</Button>
+                <Button onClick={confirm}>Confirm</Button>
+                <Button variant='danger' onClick={cancel}>Cancel</Button>
             </Modal.Footer>
         </Modal>
     )

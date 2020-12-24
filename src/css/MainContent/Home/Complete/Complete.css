@@ -3,6 +3,9 @@
     margin-left: 2em;
     width: 30em;
 }
+.complete-container[new='1']{
+    animation: bounce 0.2s 2 alternate forwards;
+}
 #complete-header{
     text-align: center;
     padding: 0.5em;
@@ -47,4 +50,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+@keyframes bounce{
+    100%{ transform: translateY(-10%) }
 }

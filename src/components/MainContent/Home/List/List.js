@@ -38,6 +38,7 @@ export default class List extends Component {
         item.timeCompleted = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
         item.status = 1;
         this.props.switch(item, 0);
+        this.props.toggleCard();
     }
     render() {
         let listContent;
