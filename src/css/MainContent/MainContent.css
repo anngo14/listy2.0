@@ -26,3 +26,27 @@
     align-items: center;
     font-size: 14pt;
 }
+
+@media(max-width: 906px){
+    .main-content-container{
+        width: calc(100% - 15em);
+        left: 15em;
+    }
+}
+@media(max-width: 750px){
+    .main-content-container{
+        width: calc(100% - 10em);
+        left: 10em;
+    }
+}
+@media(max-width: 600px){
+    .main-content-container{
+        width: calc(100% - 5em);
+        left: 5em;
+    }
+}
+@media(max-width: 420px){
+    .main-content-container{
+        padding: 1em;
+    }
+}

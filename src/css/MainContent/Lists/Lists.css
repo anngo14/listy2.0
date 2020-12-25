@@ -1,6 +1,7 @@
 /* List Grid */
 #list-grid{
     margin-top: 2em;
+    max-width: 92em;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -31,6 +32,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    text-align: center;
 }
 
 /* List Item */
@@ -51,6 +53,7 @@
     height: 6em;
     width: 100%;
     cursor: default;
+    text-align: center;
 }
 .list-item-container{
     flex: 0 0 25%;
@@ -87,11 +90,7 @@
 .list-actions > span:hover{
     text-decoration: underline;
 }
-.list-item-priority{
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-}
+
 
 /* List Item Info */
 .list-item-info{
@@ -99,6 +98,7 @@
     width: 100%;
     min-height: 20em;
     overflow-y: auto;
+    overflow-x: auto;
     background-color: white;
 }
 .list-item-info[slide='1']{
@@ -161,4 +161,49 @@
 }
 .add-list-task{
     margin-top: 1em;
+}
+
+@media(max-width: 990px){
+    .add-list-row{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .add-list-input{
+        margin-top: 1em;
+    }
+    .add-list-btn{
+        margin-top: 1em;
+        width: 100%;
+    }
+    .delete-list-btn{
+        width: 100%;
+    }
+}
+@media(max-width: 522px){
+    #add-list-btn{
+        width: 100%;
+    }
+    #list-header-row{
+        flex-direction: column;
+        align-items: center;
+    }
+    #selected-list{
+        margin-left: 0;
+        margin-top: 1em;
+        width: 100%;
+    }
+    .list-item-container{
+        min-width: 100%;
+        margin-left: 0;
+    }
+}
+@media(max-width: 350px){
+    .list-info-item{
+        padding-left: 0;
+    }
+}
+@media(max-width: 300px){
+    #selected-list-header > h2{
+        font-size: 16pt;
+    }
 }

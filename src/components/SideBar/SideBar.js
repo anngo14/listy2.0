@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link, Route, Switch } from 'react-router-dom';
 import '../../css/SideBar/SideBar.css'
-import Login from './Login';
 import Menu from './Menu';
-import Register from './Register';
 import { FiLogOut } from "react-icons/fi";
 
 export default function sidebar(props) {
@@ -24,12 +22,6 @@ export default function sidebar(props) {
                 {logout}
             </div>
             <Switch>
-                <Route path='/register' exact>
-                    <Register />
-                </Route>
-                <Route path='/login' exact>
-                    <Login />
-                </Route>
                 <Route path={['/home', '/lists', '/settings', '/about']}>
                     <Menu user={props.user}/>
                 </Route>

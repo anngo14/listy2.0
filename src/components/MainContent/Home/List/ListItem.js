@@ -81,9 +81,7 @@ export default class ListItem extends Component {
                         <div className='small-spacer'></div>
                         <h3>{this.props.item.title}</h3>
                     </div>
-                    <div className='list-item-actions'>
-                        <Button className='list-item-btn' variant='outline-success' onClick={this.completeItem}>Mark Complete</Button>
-                    </div>
+                    <Button className='list-item-btn' variant='outline-success' onClick={this.completeItem}>Mark Complete</Button>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={this.props.item.id}>
                     <Card.Body>

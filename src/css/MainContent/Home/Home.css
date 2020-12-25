@@ -9,3 +9,9 @@
     flex-direction: row;
     align-items: flex-start;
 }
+
+@media(max-width: 1858px){
+    .home-content{
+        flex-direction: column;
+    }
+}

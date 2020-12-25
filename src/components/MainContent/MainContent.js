@@ -6,6 +6,8 @@ import Home from './Home/Home'
 import Lists from './Lists/Lists'
 import Settings from './Settings/Settings'
 import Error from './Error/Error'
+import Login from './Login/Login'
+import Register from './Register/Register'
 
 export default class MainContent extends Component {
     state = {
@@ -71,6 +73,8 @@ export default class MainContent extends Component {
             <div className='main-content-container'>
                 <Switch>
                     <Route path='/' exact><Redirect to='/home' /></Route>
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
                     <Route path='/home' exact>
                         <Home list={this.state.selected} update={this.updateList} />
                     </Route>

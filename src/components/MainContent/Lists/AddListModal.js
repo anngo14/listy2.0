@@ -126,7 +126,7 @@ export default class AddListModal extends Component {
                                 <div key={item.id} className='add-list-row add-list-task'>
                                     <Form.Control value={item.title} onChange={update} />
                                     <div className='small-spacer'></div>
-                                    <Button onClick={deleteItem} variant='danger'>Delete</Button>
+                                    <Button onClick={deleteItem} variant='danger' className='delete-list-btn'>Delete</Button>
                                 </div>
                             )
                         })}

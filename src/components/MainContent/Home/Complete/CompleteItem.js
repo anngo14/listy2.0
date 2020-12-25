@@ -81,12 +81,12 @@ export default function CompleteItem(props) {
                     {priority}
                     <div className='small-spacer'></div>
                     <div className='small-spacer'></div>
-                    <div>
+                    <div className='complete-item-header-content'>
                         <h3>{props.item.title}</h3>
                         <span>{props.item.dateCompleted}</span>
                     </div>
                 </div>
-                <Button variant='outline-secondary' onClick={markIncomplete}>Mark Incomplete</Button>
+                <Button variant='outline-secondary' onClick={markIncomplete} className='list-item-btn'>Mark Incomplete</Button>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.item.id}>
                 <Card.Body>
