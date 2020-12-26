@@ -9,8 +9,8 @@ export default class Home extends Component {
     state = {
         card: false,
         selected: this.props.list,
-        list: this.props.list === null ? []: this.props.list.list,
-        complete: this.props.list === null ? []: this.props.list.complete
+        list: this.props.list.length === 0 ? []: this.props.list.list,
+        complete: this.props.list.length === 0 ? []: this.props.list.complete
     }
     getIndex(item, array){
         for(let i = 0; i < array.length; i++){
@@ -100,7 +100,7 @@ export default class Home extends Component {
     }
     render() {
         let redirectLists;
-        if(this.props.list === undefined || this.props.list === null){
+        if(this.props.list === undefined || this.props.list === null || this.props.list.length === 0){
             redirectLists = <Redirect to='/lists' />
         }
         let redirectLogin;

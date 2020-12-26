@@ -26,7 +26,7 @@ export default function sidebar(props) {
             </div>
             <Switch>
                 <Route path={['/home', '/lists', '/settings', '/about']}>
-                    <Menu user={props.user}/>
+                    <Menu name={props.name} />
                 </Route>
             </Switch>
         </div>

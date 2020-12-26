@@ -46,7 +46,7 @@ function verifyToken(req, res, next) {
     }
     req.userId = payload.subject;
     next();
-}
+} 
 app.post('/api/login', (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
@@ -107,10 +107,69 @@ app.post('/api/checkExistingUser', (req, res) => {
         }
     });
 });
+app.post('/api/getUsername', (req, res) => {
+    let email = req.body.email;
+    collection.findOne({email: email}, { projection: { _id: 0, username: 1 }}, (err, result) => {
+        if(err) throw err;
+        res.send({result});
+    });
+});
+app.post('/api/getLists', (req, res) => {
+    let email = req.body.email;
+    collection.findOne({email: email}, { projection: { _id: 0, lists: 1 }}, (err, result) => {
+        if(err) throw err;
+        res.send({result});
+    });
+});
+app.post('/api/addList', (req, res) => {
+    let email = req.body.email;
+    let list = req.body.list;
+    collection.updateOne({email: email}, 
+        {
+            $push: {
+                lists: {
+                    id: list.id,
+                    title: list.title,
+                    list: list.list,
+                    complete: list.complete
+                }
+            }
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        });
+    res.send({status: 200});
+});
+app.post('/api/getSelected', (req, res) => {
+    let email = req.body.email;
+    collection.findOne({email: email}, { projection: { _id: 0, selected: 1 }}, (err, result) => {
+        if(err) throw err;
+        res.send({result});
+    });
+});
+app.post('/api/updateSelected', (req, res) => {
+    let email = req.body.email;
+    let list = req.body.list;
+    collection.updateOne({email: email}, 
+        {
+            $set: {
+                selected: {
+                    id: list.id,
+                    title: list.title,
+                    list: list.list,
+                    complete: list.complete
+                }
+            }
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        });
+    res.send({status: 200});
+})
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 client.close();
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-}); 
+});

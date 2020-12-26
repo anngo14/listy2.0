@@ -40,6 +40,7 @@ export default class Login extends Component {
                 });
             } else{
                 window.localStorage.setItem("token", res.data.token);
+                window.localStorage.setItem("email", this.state.email);
                 this.props.login();
                 this.setState({
                     errorMsg: (

@@ -8,57 +8,73 @@ import Settings from './Settings/Settings'
 import Error from './Error/Error'
 import Login from './Login/Login'
 import Register from './Register/Register'
+import axios from 'axios'
 
 export default class MainContent extends Component {
     state = {
-        selected: {
-            id: 1,
-            title: 'Test List',
-            complete: [],
-            list: []
-        },
-        lists: this.props.user.lists
+        selected: []
+    }
+    componentDidMount(){
+        if(this.props.loggedIn){
+            this.getSelected();
+        }
+    }
+    getSelected(){
+        axios.post('http://localhost:5000/api/getSelected', {
+            email: localStorage.getItem("email")
+        })
+        .then((res) => {
+            this.setState({
+                selected: res.data.result.selected
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
     getListIndex(id){
-        for(let i = 0; i < this.state.lists.length; i++){
-            if(this.state.lists[i].id === id) return i;
+        for(let i = 0; i < this.props.lists.length; i++){
+            if(this.props.lists[i].id === id) return i;
         }
         return -1;
     }
     switchList = (list) => {
-        this.setState({
-            selected: list
+        axios.post('http://localhost:5000/api/updateSelected', {
+            email: localStorage.getItem("email"),
+            list: list
+        })
+        .then((res) => {
+            if(res.data.status === 200){
+                this.setState({
+                    selected: list
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
         });
     }
     updateList = (list) => {
         let index = this.getListIndex(list.id);
-        let copy = this.state.lists;
+        let copy = this.props.lists;
         copy[index] = list;
-        this.setState({
-            lists: copy
-        });
         this.props.updateList(copy);
     }
     addToList = (list) => {
-        let copy = this.state.lists;
+        let copy = this.props.lists;
         copy.push(list);
-        this.setState({
-            lists: copy
-        });
         this.props.updateList(copy);
     }
     deleteFromList = (list) => {
-        let copy = this.state.lists;
+        let copy = this.props.lists;
         let index = this.getListIndex(list.id);
         let next = index + 1;
-        if(next === this.state.lists.length) next = 0;
+        if(next === this.props.lists.length) next = 0;
         if(index === -1) return;
         this.switchList(copy[next]);
         copy.splice(index, 1);
-        this.setState({
-            lists: copy
-        });
-        if(this.state.lists.length === 0){
+        if(this.props.lists.length === 0){
+            this.switchList(null);
             this.setState({
                 selected: null
             });
@@ -81,10 +97,10 @@ export default class MainContent extends Component {
                         <Home list={this.state.selected} update={this.updateList} loggedIn={this.props.loggedIn} />
                     </Route>
                     <Route path='/lists' exact>
-                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} add={this.addToList} delete={this.deleteFromList} />
+                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.props.lists} add={this.addToList} delete={this.deleteFromList} />
                     </Route>
                     <Route path='/settings' exact>
-                        <Settings user={this.props.user} updateName={this.updateName}/>
+                        <Settings name={this.props.name} updateName={this.updateName}/>
                     </Route>
                     <Route path='/about' exact component={About} />
                     <Route path='/login' />

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import { Component } from 'react'
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap'
@@ -12,19 +13,26 @@ export default class AddListModal extends Component {
     };
     addToList = (e) => {
         e.preventDefault();
-        this.props.add({
-            id: uuid(),
-            title: this.state.title,
-            list: this.state.list,
-            complete: []
-        });
         this.setState({
             title: '',
             priority: 1,
             task: '',
             list: []
         });
-        this.props.onHide();
+        let list = {
+            id: uuid(),
+            title: this.state.title,
+            list: this.state.list,
+            complete: []
+        };
+        axios.post('http://localhost:5000/api/addList', {
+            email: localStorage.getItem("email"),
+            list: list
+        })
+        .then((res) => {
+            this.props.add(list);
+            this.props.onHide();
+        });
     }
     handleTitle = (e) => {
         this.setState({

@@ -6,8 +6,8 @@ import ConfirmModal from './ConfirmModal';
 
 export default class Settings extends Component {
     state = {
-        original: this.props.user.name,
-        name: this.props.user.name,
+        original: this.props.name,
+        name: this.props.name,
         newPassword: '',
         confirmPassword: '',
         confirmModal: false,
