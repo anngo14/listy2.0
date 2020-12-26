@@ -132,7 +132,7 @@ export default class App extends Component {
         }
       ]
     },
-    loggedIn: false,
+    loggedIn: localStorage.getItem("token") !== null ? true: false,
   }
   updateName = (name) => {
     let copy = this.state.user;
@@ -156,6 +156,7 @@ export default class App extends Component {
       this.setState({
           loggedIn: false
       });
+      localStorage.clear();
   }
   login = () => {
       this.setState({
