@@ -99,13 +99,18 @@ export default class Home extends Component {
         },400);
     }
     render() {
-        let redirect;
+        let redirectLists;
         if(this.props.list === undefined || this.props.list === null){
-            redirect = <Redirect to='/lists' />
+            redirectLists = <Redirect to='/lists' />
+        }
+        let redirectLogin;
+        if(this.props.loggedIn === undefined || this.props.loggedIn === null || this.props.loggedIn === false){
+            redirectLogin = <Redirect to='/login' />
         }
         return (
             <div className='home-container'>
-                {redirect}
+                {redirectLists}
+                {redirectLogin} 
                 <Header />
                 <div className='home-content'>
                     <List list={this.state.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.state.selected !== null ? this.state.selected.title: null} toggleCard={this.toggleCard} />

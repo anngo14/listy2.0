@@ -5,10 +5,13 @@ import Menu from './Menu';
 import { FiLogOut } from "react-icons/fi";
 
 export default function sidebar(props) {
-    let logout;
+    let signOut = () => {
+        props.logout();
+    }
+    let logoutLink;
     if(props.loggedIn){
-        logout = (
-        <Link to='/login'>
+        logoutLink = (
+        <Link to='/login' onClick={signOut}>
             <FiLogOut />
         </Link>
         )
@@ -19,7 +22,7 @@ export default function sidebar(props) {
                 <div className='header-logo-container'>
                     <h2 style={{cursor: 'default'}}>Listy</h2>
                 </div>
-                {logout}
+                {logoutLink}
             </div>
             <Switch>
                 <Route path={['/home', '/lists', '/settings', '/about']}>

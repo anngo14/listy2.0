@@ -73,10 +73,12 @@ export default class MainContent extends Component {
             <div className='main-content-container'>
                 <Switch>
                     <Route path='/' exact><Redirect to='/home' /></Route>
-                    <Route path='/login' component={Login} />
+                    <Route path='/login'>
+                        <Login login={this.props.login} />
+                    </Route>
                     <Route path='/register' component={Register} />
                     <Route path='/home' exact>
-                        <Home list={this.state.selected} update={this.updateList} />
+                        <Home list={this.state.selected} update={this.updateList} loggedIn={this.props.loggedIn} />
                     </Route>
                     <Route path='/lists' exact>
                         <Lists switch={this.switchList} selected={this.state.selected} lists={this.state.lists} add={this.addToList} delete={this.deleteFromList} />

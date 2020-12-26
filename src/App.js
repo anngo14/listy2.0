@@ -132,7 +132,7 @@ export default class App extends Component {
         }
       ]
     },
-    loggedIn: true,
+    loggedIn: false,
   }
   updateName = (name) => {
     let copy = this.state.user;
@@ -152,12 +152,22 @@ export default class App extends Component {
           user: user
       });
   }
+  logout = () => {
+      this.setState({
+          loggedIn: false
+      });
+  }
+  login = () => {
+      this.setState({
+          loggedIn: true
+      });
+  }
   render() {
     return (
       <div className='app-container'>
         <BrowserRouter>
-          <SideBar loggedIn={this.state.loggedIn} user={this.state.user}/>
-          <MainContent user={this.state.user} updateName={this.updateName} updateList={this.updateList} />
+          <SideBar loggedIn={this.state.loggedIn} user={this.state.user} logout={this.logout} />
+          <MainContent user={this.state.user} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} />
         </BrowserRouter>
       </div>
     )

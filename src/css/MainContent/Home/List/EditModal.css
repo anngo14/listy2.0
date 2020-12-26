@@ -28,11 +28,19 @@
     margin-top: 1em;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0 0.5em;
 }
 #edit-item-actions{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+@media(max-width: 546px){
+    .edit-add-subtask{
+        flex-direction: column;
+    }
+    #edit-add-subtask-btn{
+        margin-top: 1em;
+        width: 100%;
+    }
 }

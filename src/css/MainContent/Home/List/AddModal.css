@@ -38,3 +38,18 @@
     align-items: center;
     margin-bottom: 0.5em;
 }
+@media(max-width: 546px){
+    #add-subtasks-row{
+        flex-direction: column;
+    }
+    #add-subtasks-btn{
+        margin-top: 1em;
+        width: 100%;
+    }
+    .add-subtasks-item{
+        flex-direction: column;
+    }
+    .add-subtasks-item > Button{
+        width: 100%;
+    }
+}
