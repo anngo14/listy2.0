@@ -30,7 +30,23 @@ client.connect(err => {
     console.log("Connected to MongoDB");
     collection = client.db("Listy-DB").collection("Listy-Collection");
 });
-
+function verifyToken(req, res, next) {
+    console.log("verify");
+    if(!req.headers.authorization){
+        return res.status(401).send({status: "Unauthorized" });
+    }
+    let token = req.headers.authorization.split(' ')[1];
+    console.log(token);
+    if(token === 'null'){
+        return res.status(401).send({status: "Unauthorized" });
+    }
+    let payload = jwt.verify(token, `${token_secret}`);
+    if(!payload){
+        return res.status(401).send({status: "Unauthorized" });
+    }
+    req.userId = payload.subject;
+    next();
+}
 app.post('/api/login', (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;

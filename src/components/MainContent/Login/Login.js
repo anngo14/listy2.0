@@ -39,6 +39,7 @@ export default class Login extends Component {
                     )
                 });
             } else{
+                window.localStorage.setItem("token", res.data.token);
                 this.props.login();
                 this.setState({
                     errorMsg: (
