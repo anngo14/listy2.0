@@ -113,6 +113,22 @@ export default class App extends Component {
       avatar: a
     });
   }
+  switchList = (list) => {
+    axios.post('http://localhost:5000/api/updateSelected', {
+        email: localStorage.getItem("email"),
+        list: list
+    })
+    .then((res) => {
+        if(res.data.status === 200){
+          this.setState({
+            selected: list
+          });
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+}
   logout = () => {
       this.setState({
           loggedIn: false,
@@ -135,7 +151,7 @@ export default class App extends Component {
       <div className='app-container'>
         <BrowserRouter>
           <SideBar loggedIn={this.state.loggedIn} name={this.state.name} logout={this.logout} avatar={this.state.avatar} />
-          <MainContent lists={this.state.lists} name={this.state.name} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} selected={this.state.selected} />
+          <MainContent lists={this.state.lists} name={this.state.name} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} selected={this.state.selected} switch={this.switchList} />
         </BrowserRouter>
       </div>
     )

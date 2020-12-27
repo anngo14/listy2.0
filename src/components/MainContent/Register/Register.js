@@ -32,7 +32,7 @@ export default class Register extends Component {
         });
     }
     validate(){
-        if(!this.state.email.match(/.+@\..+/)) return false;
+        if(!this.state.email.match(/.+@.+\..+/)) return false;
         if(this.state.username.length === 0) return false;
         if(this.state.password !== this.state.confirmPassword || this.state.password.length < 8) return false;
         return true;

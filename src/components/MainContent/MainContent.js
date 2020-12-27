@@ -18,20 +18,7 @@ export default class MainContent extends Component {
         return -1;
     }
     switchList = (list) => {
-        axios.post('http://localhost:5000/api/updateSelected', {
-            email: localStorage.getItem("email"),
-            list: list
-        })
-        .then((res) => {
-            if(res.data.status === 200){
-                this.setState({
-                    selected: list
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        this.props.switch(list);
     }
     updateList = (list) => {
         let index = this.getListIndex(list.id);
