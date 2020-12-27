@@ -9,30 +9,46 @@ export default class AddListModal extends Component {
         title: '',
         priority: 1,
         task: '',
-        list: []
+        list: [],
+        errorRender: null
     };
+    validate(){
+        if(this.state.title.length === 0) return false;
+        return true;
+    }
     addToList = (e) => {
         e.preventDefault();
-        this.setState({
-            title: '',
-            priority: 1,
-            task: '',
-            list: []
-        });
-        let list = {
-            id: uuid(),
-            title: this.state.title,
-            list: this.state.list,
-            complete: []
-        };
-        axios.post('http://localhost:5000/api/addList', {
-            email: localStorage.getItem("email"),
-            list: list
-        })
-        .then((res) => {
-            this.props.add(list);
-            this.props.onHide();
-        });
+        if(this.validate()){
+            this.setState({
+                title: '',
+                priority: 1,
+                task: '',
+                list: []
+            });
+            let list = {
+                id: uuid(),
+                title: this.state.title,
+                list: this.state.list,
+                complete: []
+            };
+            axios.post('http://localhost:5000/api/addList', {
+                email: localStorage.getItem("email"),
+                list: list
+            })
+            .then((res) => {
+                this.props.add(list);
+                this.props.onHide();
+            });
+        } else{
+            this.setState({
+                errorRender: (
+                    <div>
+                        <span>Empty Title!</span>
+                        <div className='vertical-spacer'></div>
+                    </div>
+                )
+            })
+        }
     }
     handleTitle = (e) => {
         this.setState({
@@ -102,6 +118,7 @@ export default class AddListModal extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.state.errorRender}
                     <Form>
                         <Form.Control placeholder='Title' size='lg' value={this.state.title} onChange={this.handleTitle} />
                     </Form>

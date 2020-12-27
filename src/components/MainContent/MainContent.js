@@ -46,10 +46,7 @@ export default class MainContent extends Component {
                 this.switchList(copy[next]);
                 copy.splice(index, 1);
                 if(this.props.lists.length === 0){
-                    this.switchList(null);
-                    this.setState({
-                        selected: null
-                    });
+                    this.switchList({});
                 }
                 this.props.updateList(copy);
             }

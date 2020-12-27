@@ -7,7 +7,8 @@ import '../../../../css/MainContent/Home/List/EditModal.css'
 export default class EditItemModal extends Component {
     state = {
         item: this.props.item,
-        subtask: ''
+        subtask: '',
+        errorRender: null
     }
     getId(task){
         for(let i = 0; i < this.state.item.subtasks.length; i++){
@@ -35,12 +36,14 @@ export default class EditItemModal extends Component {
         });
     }
     addSubtask = () => {
-        let copy = this.state.item;
-        copy.subtasks.push({ id: uuid(), title: this.state.subtask, status: 0 });
-        this.setState({
-            item: copy,
-            subtask: ''
-        });
+        if(this.validateSubtask()){
+            let copy = this.state.item;
+            copy.subtasks.push({ id: uuid(), title: this.state.subtask, status: 0 });
+            this.setState({
+                item: copy,
+                subtask: ''
+            });
+        }
     }
     deleteSubtask = (subtask) => {
         let copy = this.state.item;
@@ -64,13 +67,45 @@ export default class EditItemModal extends Component {
             item: copy
         });
     }
+    validateSubtask(){
+        if(this.state.subtask.length === 0) return false;
+        return true;
+    }
+    validateTask(){
+        if(this.state.item.title.length === 0) return false;
+        return true;
+    }
     delete = (e) => {
         e.preventDefault();
         this.props.delete(this.state.item);
     }
     save = (e) => {
         e.preventDefault();
-        this.props.update(this.state.item);
+        if(this.validateTask()){
+            for(let i = 0; i < this.state.item.subtasks.length; i++){
+                if(this.state.item.subtasks[i].title.length === 0){
+                    this.setState({
+                        errorRender: (
+                            <div>
+                                <span>Empty Subtask Found!</span>
+                                <div className='vertical-spacer'></div>
+                            </div>
+                        )
+                    })
+                    return;
+                }
+            }
+            this.props.update(this.state.item);
+        } else{
+            this.setState({
+                errorRender: (
+                    <div>
+                        <span>Empty Task Title!</span>
+                        <div className='vertical-spacer'></div>
+                    </div>
+                )
+            })
+        }
     }
     render() {
         return (
@@ -81,6 +116,7 @@ export default class EditItemModal extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.state.errorRender}
                     <Form>
                         <Form.Control size='lg' placeholder='Title' id='edit-item-title' value={this.state.item.title} onChange={this.handleTitleChange}/>
                         <div className='edit-subheader'>

@@ -60,6 +60,12 @@ export default class Register extends Component {
                     })
                 }
             });
+        } else{
+            this.setState({
+                errorRender: (
+                    <span>Invalid Format! Must be a valid email address and password must be at least 8 characters long. Please Try Again</span>
+                )
+            })
         }
     }
     render() {

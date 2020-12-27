@@ -20,35 +20,48 @@ export default class Login extends Component {
             password: e.target.value
         });
     }
+    validate(){
+        if(!this.state.email.match(/.+@.+\..+/)) return false;
+        if(this.state.password.length < 8) return false;
+        return true;
+    }
     login = () => {
-        axios.post('http://localhost:5000/api/login', {
-            email: this.state.email,
-            pass: this.state.password
-        })
-        .then((res) => {
-            if(res.data.status === "Invalid Password"){
-                this.setState({
-                    errorMsg: (
-                        <span>Invalid Password! Please Try Again</span>
-                    )
-                });
-            } else if(res.data.status === "Invalid Email"){
-                this.setState({
-                    errorMsg: (
-                        <span>No Account Found with this Email! Please Try Again</span>
-                    )
-                });
-            } else{
-                window.localStorage.setItem("token", res.data.token);
-                window.localStorage.setItem("email", this.state.email);
-                this.props.login();
-                this.setState({
-                    errorMsg: (
-                        <Redirect to='/home' />
-                    )
-                });
-            }
-        });
+        if(this.validate()){
+            axios.post('http://localhost:5000/api/login', {
+                email: this.state.email,
+                pass: this.state.password
+            })
+            .then((res) => {
+                if(res.data.status === "Invalid Password"){
+                    this.setState({
+                        errorMsg: (
+                            <span>Invalid Password! Please Try Again</span>
+                        )
+                    });
+                } else if(res.data.status === "Invalid Email"){
+                    this.setState({
+                        errorMsg: (
+                            <span>No Account Found with this Email! Please Try Again</span>
+                        )
+                    });
+                } else{
+                    window.localStorage.setItem("token", res.data.token);
+                    window.localStorage.setItem("email", this.state.email);
+                    this.props.login();
+                    this.setState({
+                        errorMsg: (
+                            <Redirect to='/home' />
+                        )
+                    });
+                }
+            });
+        } else{
+            this.setState({
+                errorMsg: (
+                    <span>Invalid Format! Please Try Again</span>
+                )
+            });
+        }
     }
     render() {
         return (

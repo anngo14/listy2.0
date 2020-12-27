@@ -16,7 +16,8 @@ export default class Settings extends Component {
         confirmModal: false,
         confirmModalMsg: '',
         confirmModalType: null,
-        redirect: null
+        redirect: null,
+        errorRender: null
     }
     showConfirmModal = () => {
         this.setState({
@@ -48,23 +49,33 @@ export default class Settings extends Component {
             avatar: parseInt(e.target.value)
         });
     }
+    validateName(){
+        if(this.state.name.length === 0) return false;
+        return true;
+    }
     updateName = () => {
-        let name = this.state.name;
-        axios.post('http://localhost:5000/api/updateUser', {
-            email: localStorage.getItem("email"),
-            name: name
-        })
-        .then((res) => {
-            if(res.data.status === 200){
-                this.props.updateName(name);
-                this.setState({
-                    original: name
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        if(this.validateName()){
+            let name = this.state.name;
+            axios.post('http://localhost:5000/api/updateUser', {
+                email: localStorage.getItem("email"),
+                name: name
+            })
+            .then((res) => {
+                if(res.data.status === 200){
+                    this.props.updateName(name);
+                    this.setState({
+                        original: name
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        } else{
+            this.setState({
+                name: this.state.original
+            });
+        }
     }
     deleteAccount = () => {
         this.setState({
@@ -91,12 +102,27 @@ export default class Settings extends Component {
             console.log(err);
         });
     }
+    validatePassword(){
+        if(this.state.newPassword.length < 8 || this.state.newPassword !== this.state.confirmPassword) return false;
+        return true;
+    }
     changePassword = () => {
-        this.setState({
-            confirmModal: true, 
-            confirmModalMsg: 'Are you sure you want to change your password?',
-            confirmModalType: 'password'
-        });
+        if(this.validatePassword()){
+            this.setState({
+                confirmModal: true, 
+                confirmModalMsg: 'Are you sure you want to change your password?',
+                confirmModalType: 'password'
+            });
+        } else{
+            this.setState({
+                errorRender: (
+                    <div>
+                        <span>Error Detected! Passwords must match and be at least 8 characters long</span>
+                        <div className='vertical-spacer'></div>
+                    </div>
+                )
+            })
+        }
     }
     delete = () => {
         axios.post('http://localhost:5000/api/deleteAccount', {
@@ -170,6 +196,7 @@ export default class Settings extends Component {
                         <div className='settings-content'>
                             <h4>Change Password</h4>
                             <div className='settings-subcontent'>
+                                {this.state.errorRender} 
                                 <h5>New Password</h5>
                                 <Form.Control type='password' value={this.state.newPassword} onChange={this.handleNewPassword} />
                                 <h5 style={{marginTop: '1em'}}>Confirm New Password</h5>

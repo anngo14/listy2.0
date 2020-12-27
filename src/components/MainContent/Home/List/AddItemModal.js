@@ -10,7 +10,8 @@ export default class AddItemModal extends Component {
         title: '',
         subtasks: [],
         subtask: '',
-        priority: 1
+        priority: 1,
+        errorRender: null
     }
 
     getIndex(task){
@@ -44,10 +45,12 @@ export default class AddItemModal extends Component {
         });
     }
     addSubTask = () => {
-        this.setState({
-            subtasks: [...this.state.subtasks, { id: uuid(), title: this.state.subtask, status: 0 }],
-            subtask: ''
-        });
+        if(this.validateSubitem()){
+            this.setState({
+                subtasks: [...this.state.subtasks, { id: uuid(), title: this.state.subtask, status: 0 }],
+                subtask: ''
+            });
+        }
     };
     deleteSubTask = (task) => {
         let index = this.getIndex(task);
@@ -58,28 +61,48 @@ export default class AddItemModal extends Component {
             subtasks: copy
         });
     }
+    validateSubitem(){
+        if(this.state.subtask.length === 0) return false;
+        return true;
+    }
+    validateItem(){
+        if(this.state.title.length === 0) return false;
+        return true;
+    }
     addItem = (e) => {
         e.preventDefault();
-        let d = new Date();
-        let month = d.getMonth() + 1;
-        let date = d.getDate();
-        let year = d.getFullYear();
-
-        this.props.add({
-            id: uuid(),
-            title: this.state.title, 
-            subtasks: this.state.subtasks,
-            priority: this.state.priority,
-            dateCreated: month + '/' + date + '/' + year,
-            timeCreated: d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(),
-            status: 0
-        });
-        this.setState({
-            title: '',
-            subtasks: [],
-            subtask: '',
-            priority: 1
-        });
+        if(this.validateItem()){
+            let d = new Date();
+            let month = d.getMonth() + 1;
+            let date = d.getDate();
+            let year = d.getFullYear();
+    
+            this.props.add({
+                id: uuid(),
+                title: this.state.title, 
+                subtasks: this.state.subtasks,
+                priority: this.state.priority,
+                dateCreated: month + '/' + date + '/' + year,
+                timeCreated: d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(),
+                status: 0
+            });
+            this.setState({
+                title: '',
+                subtasks: [],
+                subtask: '',
+                priority: 1,
+                errorRender: null
+            });
+        } else{
+            this.setState({
+                errorRender: (
+                    <div>
+                        <span>Empty Title!</span>
+                        <div className='vertical-spacer'></div>
+                    </div>
+                )
+            })
+        }
     }
 
     render(){
@@ -91,6 +114,7 @@ export default class AddItemModal extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.state.errorRender}
                     <Form>
                         <Form.Control size='lg' placeholder='Title' id='add-title-input' value={this.state.title} onChange={this.handleTitleChange} />
                         <div className='add-item-subheader'>
