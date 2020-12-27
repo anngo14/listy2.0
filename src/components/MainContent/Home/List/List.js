@@ -7,7 +7,6 @@ import AddItemModal from './AddItemModal'
 export default class List extends Component {
     state = {
         addModal: false,
-        list: this.props.list
     }
     showAddModal = () => {
         this.setState({
@@ -42,8 +41,8 @@ export default class List extends Component {
     }
     render() {
         let listContent;
-        if(this.state.list.length > 0){
-            listContent = (this.state.list.map((item) => {
+        if(this.props.list.length > 0){
+            listContent = (this.props.list.map((item) => {
                 return <ListItem key={item.id} item={item} delete={this.deleteItem} update={this.updateItem} complete={this.markComplete}/>
             }))
         } else{

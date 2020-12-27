@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default function Menu(props) {
     return (
         <div className='menu-container'>
-            <Avatar user={props.name} />
+            <Avatar user={props.name} avatar={props.avatar} />
             <div className='menu-btn-container'>
                 <Link to='/home' className='menu-item'>
                     <FaHome />

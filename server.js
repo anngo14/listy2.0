@@ -77,6 +77,7 @@ app.post('/api/register', async (req, res) => {
         email: email,
         password: hashedPassword,
         username: name,
+        avatar: 0,
         lists: [],
         selected: {}
     }
@@ -113,6 +114,13 @@ app.post('/api/getUsername', (req, res) => {
         res.send({result});
     });
 });
+app.post('/api/getAvatar', (req, res) => {
+    let email = req.body.email;
+    collection.findOne({email: email}, { projection: { _id: 0, avatar: 1 }}, (err, result) => {
+        if(err) throw err;
+        res.send({result});
+    });
+})
 app.post('/api/getLists', (req, res) => {
     let email = req.body.email;
     collection.findOne({email: email}, { projection: { _id: 0, lists: 1 }}, (err, result) => {

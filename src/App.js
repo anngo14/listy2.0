@@ -12,6 +12,7 @@ export default class App extends Component {
       super(props);
       this.state = {
         name: '',
+        avatar: '',
         lists: [],
         selected: {},
         loggedIn: localStorage.getItem("token") !== undefined ? true: false
@@ -20,6 +21,7 @@ export default class App extends Component {
   componentDidMount(){
     if(this.state.loggedIn){
       this.getUsername();
+      this.getAvatar();
       this.getLists();
       this.getSelected();
     }
@@ -35,15 +37,28 @@ export default class App extends Component {
   }
   getUsername(){
     axios.post('http://localhost:5000/api/getUsername', {
-        email: localStorage.getItem("email")
+      email: localStorage.getItem("email")
     })
     .then((res) => {
         this.setState({
-            name: res.data.result.username
+          name: res.data.result.username
         });
     })
     .catch((err) => {
-        console.log(err);
+      console.log(err);
+    });
+  }
+  getAvatar(){
+    axios.post('http://localhost:5000/api/getAvatar', {
+      email: localStorage.getItem("email")
+    })
+    .then((res) => {
+      this.setState({
+        avatar: res.data.result.avatar
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
   getLists(){
@@ -93,8 +108,10 @@ export default class App extends Component {
       console.log(err);
     });
   }
-  updateAvatar = (avater) => {
-
+  updateAvatar = (a) => {
+    this.setState({
+      avatar: a
+    });
   }
   logout = () => {
       this.setState({
@@ -117,7 +134,7 @@ export default class App extends Component {
     return (
       <div className='app-container'>
         <BrowserRouter>
-          <SideBar loggedIn={this.state.loggedIn} name={this.state.name} logout={this.logout} />
+          <SideBar loggedIn={this.state.loggedIn} name={this.state.name} logout={this.logout} avatar={this.state.avatar} />
           <MainContent lists={this.state.lists} name={this.state.name} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} selected={this.state.selected} />
         </BrowserRouter>
       </div>

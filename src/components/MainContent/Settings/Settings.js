@@ -10,6 +10,7 @@ export default class Settings extends Component {
     state = {
         original: this.props.name,
         name: this.props.name,
+        avatar: 0,
         newPassword: '',
         confirmPassword: '',
         confirmModal: false,
@@ -40,6 +41,11 @@ export default class Settings extends Component {
     handleConfirm = (e) => {
         this.setState({
             confirmPassword: e.target.value
+        });
+    }
+    handleAvatar = (e) => {
+        this.setState({
+            avatar: parseInt(e.target.value)
         });
     }
     updateName = () => {
@@ -149,9 +155,8 @@ export default class Settings extends Component {
                         <div className='settings-content'>
                             <h4>Change Avatar</h4>
                             <div className='settings-subcontent'>
-                                <Form.Control as='select'>
-                                    <option>Default</option>
-                                    <option>Robot</option>
+                                <Form.Control as='select' value={this.state.avatar} onChange={this.handleAvatar}>
+                                    <option value='0'>Default</option>
                                 </Form.Control>
                             </div>
                             <h4>Change Display Name</h4>

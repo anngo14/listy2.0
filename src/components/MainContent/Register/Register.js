@@ -38,27 +38,29 @@ export default class Register extends Component {
         return true;
     }
     register = () => {
-        axios.post('http://localhost:5000/api/checkExistingUser', {
-            email: this.state.email
-        })
-        .then((res) => {
-            if(res.data.status === 404){
-                axios.post('http://localhost:5000/api/register', {
-                    email: this.state.email,
-                    pass: this.state.password,
-                    username: this.state.username
-                })
-                .then((res) => {
-                    this.props.history.push('/login');
-                });       
-            } else{
-                this.setState({
-                    errorRender: (
-                        <span>Existing Account Found with this Email!</span>
-                    )
-                })
-            }
-        });
+        if(this.validate()){
+            axios.post('http://localhost:5000/api/checkExistingUser', {
+                email: this.state.email
+            })
+            .then((res) => {
+                if(res.data.status === 404){
+                    axios.post('http://localhost:5000/api/register', {
+                        email: this.state.email,
+                        pass: this.state.password,
+                        username: this.state.username
+                    })
+                    .then((res) => {
+                        this.props.history.push('/login');
+                    });       
+                } else{
+                    this.setState({
+                        errorRender: (
+                            <span>Existing Account Found with this Email!</span>
+                        )
+                    })
+                }
+            });
+        }
     }
     render() {
         return (

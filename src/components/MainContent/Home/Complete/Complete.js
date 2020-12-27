@@ -4,9 +4,6 @@ import '../../../../css/MainContent/Home/Complete/Complete.css'
 import CompleteItem from './CompleteItem';
 
 export default class Complete extends Component {
-    state = {
-        complete: this.props.list,
-    }
     complete = (item) => {
         this.props.switch(item, 1);
     }
@@ -22,9 +19,9 @@ export default class Complete extends Component {
     }
     render() {
         let listContent;
-        if(this.state.complete.length > 0){
+        if(this.props.list.length > 0){
             listContent = (
-                this.state.complete.map((item) => {
+                this.props.list.map((item) => {
                     return <CompleteItem item={item} key={item.id} complete={this.complete}/>
                 })
             )
