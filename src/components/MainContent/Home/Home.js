@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import '../../../css/MainContent/Home/Home.css'
@@ -9,8 +10,8 @@ export default class Home extends Component {
     state = {
         card: false,
         selected: this.props.list,
-        list: this.props.list.length === 0 ? []: this.props.list.list,
-        complete: this.props.list.length === 0 ? []: this.props.list.complete
+        list: this.props.list.list === undefined ? []: this.props.list.list,
+        complete: this.props.list.complete === undefined ? []: this.props.list.complete
     }
     getIndex(item, array){
         for(let i = 0; i < array.length; i++){
@@ -72,21 +73,32 @@ export default class Home extends Component {
     }
     setList(list, type){
         let copy = this.state.selected;
-        if(type === 0){
-            this.setState({
-                list: list
-            });
-            copy.list = this.state.list;
-        } else if(type === 1){
-            this.setState({
-                complete: list
-            });
-            copy.complete = this.state.complete;
-        }
-        this.setState({
-            selected: copy
+        axios.post('http://localhost:5000/api/updateSelected', {
+            email: localStorage.getItem("email"),
+            list: this.state.selected
+        })
+        .then((res) => {
+            if(res.data.status === 200){
+                if(type === 0){
+                    this.setState({
+                        list: list
+                    });
+                    copy.list = this.state.list;
+                } else if(type === 1){
+                    this.setState({
+                        complete: list
+                    });
+                    copy.complete = this.state.complete;
+                }
+                this.setState({
+                    selected: copy
+                });
+                this.props.update(copy);
+            }
+        })
+        .catch((err) => {
+            if(err) console.log(err);
         });
-        this.props.update(this.state.selected);
     }
     toggleCard = () => {
         this.setState({
@@ -100,7 +112,7 @@ export default class Home extends Component {
     }
     render() {
         let redirectLists;
-        if(this.props.list === undefined || this.props.list === null || this.props.list.length === 0){
+        if(this.props.list.id === undefined || this.props.list === null){
             redirectLists = <Redirect to='/lists' />
         }
         let redirectLogin;

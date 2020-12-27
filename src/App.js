@@ -43,7 +43,6 @@ export default class App extends Component {
         this.setState({
             lists: res.data.result.lists
         });
-        console.log(this.state.lists);
       })
       .catch((err) => {
           console.log(err);
@@ -55,8 +54,19 @@ export default class App extends Component {
     });
   }
   updateList = (list) => {
-    this.setState({
-      lists: list
+    axios.post('http://localhost:5000/api/updateList', {
+      email: localStorage.getItem("email"),
+      list: list
+    })
+    .then((res) => {
+      if(res.data.status === 200){
+        this.setState({
+          lists: list
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
   updateAvatar = (avater) => {

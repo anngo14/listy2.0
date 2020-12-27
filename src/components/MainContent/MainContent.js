@@ -12,7 +12,7 @@ import axios from 'axios'
 
 export default class MainContent extends Component {
     state = {
-        selected: []
+        selected: {}
     }
     componentDidMount(){
         if(this.props.loggedIn){
@@ -66,20 +66,31 @@ export default class MainContent extends Component {
         this.props.updateList(copy);
     }
     deleteFromList = (list) => {
-        let copy = this.props.lists;
-        let index = this.getListIndex(list.id);
-        let next = index + 1;
-        if(next === this.props.lists.length) next = 0;
-        if(index === -1) return;
-        this.switchList(copy[next]);
-        copy.splice(index, 1);
-        if(this.props.lists.length === 0){
-            this.switchList(null);
-            this.setState({
-                selected: null
-            });
-        }
-        this.props.updateList(copy);
+        axios.post('http://localhost:5000/api/deleteList', {
+            email: localStorage.getItem("email"),
+            id: list.id
+        })
+        .then((res) => {
+            if(res.data.status === 200){
+                let copy = this.props.lists;
+                let index = this.getListIndex(list.id);
+                let next = index + 1;
+                if(next === this.props.lists.length) next = 0;
+                if(index === -1) return;
+                this.switchList(copy[next]);
+                copy.splice(index, 1);
+                if(this.props.lists.length === 0){
+                    this.switchList(null);
+                    this.setState({
+                        selected: null
+                    });
+                }
+                this.props.updateList(copy);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
     updateName = (name) => {
         this.props.updateName(name);

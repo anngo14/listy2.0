@@ -165,6 +165,34 @@ app.post('/api/updateSelected', (req, res) => {
             if(err) console.log(err);
         });
     res.send({status: 200});
+});
+app.post('/api/deleteList', (req, res) => {
+    let email = req.body.email;
+    let id = req.body.id;
+    collection.updateOne({email: email}, 
+        {
+            $pull: {
+                lists: { id: id }
+            }
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        });
+    res.send({status: 200});
+});
+app.post('/api/updateList', (req, res) => {
+    let email = req.body.email;
+    let list = req.body.list;
+    collection.updateOne({email: email},
+        {
+            $set: {
+                lists: list
+            }
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        });
+    res.send({status: 200});
 })
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
