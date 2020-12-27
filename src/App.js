@@ -13,6 +13,7 @@ export default class App extends Component {
       this.state = {
         name: '',
         lists: [],
+        selected: {},
         loggedIn: localStorage.getItem("token") !== undefined ? true: false
       }
     }
@@ -20,7 +21,17 @@ export default class App extends Component {
     if(this.state.loggedIn){
       this.getUsername();
       this.getLists();
+      this.getSelected();
     }
+  }
+  componentWillUnmount(){
+    this.logout();
+    this.setState({
+      name: '',
+      lists: [],
+      loggedIn: false,
+      selected: {}
+    });
   }
   getUsername(){
     axios.post('http://localhost:5000/api/getUsername', {
@@ -48,6 +59,19 @@ export default class App extends Component {
           console.log(err);
       })
   }
+  getSelected(){
+    axios.post('http://localhost:5000/api/getSelected', {
+        email: localStorage.getItem("email")
+    })
+    .then((res) => {
+        this.setState({
+            selected: res.data.result.selected
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+}
   updateName = (name) => {
     this.setState({
       name: name
@@ -74,7 +98,10 @@ export default class App extends Component {
   }
   logout = () => {
       this.setState({
-          loggedIn: false
+          loggedIn: false,
+          name: '',
+          lists: [],
+          selected: {}
       });
       localStorage.clear();
   }
@@ -84,13 +111,14 @@ export default class App extends Component {
       });
       this.getUsername();
       this.getLists();
+      this.getSelected();
   }
   render() {
     return (
       <div className='app-container'>
         <BrowserRouter>
           <SideBar loggedIn={this.state.loggedIn} name={this.state.name} logout={this.logout} />
-          <MainContent lists={this.state.lists} name={this.state.name} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} />
+          <MainContent lists={this.state.lists} name={this.state.name} updateName={this.updateName} updateList={this.updateList} login={this.login} loggedIn={this.state.loggedIn} selected={this.state.selected} />
         </BrowserRouter>
       </div>
     )

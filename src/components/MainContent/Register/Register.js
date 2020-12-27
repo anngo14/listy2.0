@@ -49,7 +49,6 @@ export default class Register extends Component {
                     username: this.state.username
                 })
                 .then((res) => {
-                    console.log(res);
                     this.props.history.push('/login');
                 });       
             } else{

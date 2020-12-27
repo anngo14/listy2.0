@@ -40,7 +40,7 @@ export default class Lists extends Component {
                     <Card id='selected-list'>
                         <div id='selected-list-header'>
                             <span>Currently Selected</span>
-                            <h2>{this.props.selected !== null ? this.props.selected.title: "Empty!"}</h2>
+                            <h2>{this.props.selected.title !== undefined ? this.props.selected.title: "Empty!"}</h2>
                         </div>
                         <div className='list-actions'>
                             <Link to='/home'>More Info</Link>

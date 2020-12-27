@@ -70,16 +70,15 @@ app.post('/api/register', async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     let name = req.body.username;
-    console.log(email);
-    console.log(pass);
-    console.log(name);
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(pass, salt);
     let user = {
         email: email,
         password: hashedPassword,
-        username: name
+        username: name,
+        lists: [],
+        selected: {}
     }
     collection.insertOne(user, (err, result) => {
         if(err){
@@ -193,7 +192,36 @@ app.post('/api/updateList', (req, res) => {
             if(err) console.log(err);
         });
     res.send({status: 200});
-})
+});
+app.post('/api/deleteAccount', (req, res) => {
+    let email = req.body.email;
+    collection.deleteOne({email: email}, (err, result) => {
+        if(err) throw err;
+        res.send({status: 200});
+    })
+});
+app.post('/api/updateUser', (req, res) => {
+    let email = req.body.email;
+    let name = req.body.name;
+    collection.updateOne({email: email}, {
+        $set: {
+            username: name
+        }
+    });
+    res.send({status: 200});
+});
+app.post('/api/changePassword', async (req, res) => {
+    let email = req.body.email;
+    let pass = req.body.pass;
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(pass, salt);
+    collection.updateOne({email: email}, {
+        $set: {
+            password: hashedPassword
+        }
+    });
+    res.send({status: 200});
+});
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

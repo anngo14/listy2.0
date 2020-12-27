@@ -10,28 +10,7 @@ import Login from './Login/Login'
 import Register from './Register/Register'
 import axios from 'axios'
 
-export default class MainContent extends Component {
-    state = {
-        selected: {}
-    }
-    componentDidMount(){
-        if(this.props.loggedIn){
-            this.getSelected();
-        }
-    }
-    getSelected(){
-        axios.post('http://localhost:5000/api/getSelected', {
-            email: localStorage.getItem("email")
-        })
-        .then((res) => {
-            this.setState({
-                selected: res.data.result.selected
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
+export default class MainContent extends Component {   
     getListIndex(id){
         for(let i = 0; i < this.props.lists.length; i++){
             if(this.props.lists[i].id === id) return i;
@@ -105,10 +84,10 @@ export default class MainContent extends Component {
                     </Route>
                     <Route path='/register' component={Register} />
                     <Route path='/home' exact>
-                        <Home list={this.state.selected} update={this.updateList} loggedIn={this.props.loggedIn} />
+                        <Home list={this.props.selected} update={this.updateList} loggedIn={this.props.loggedIn} />
                     </Route>
                     <Route path='/lists' exact>
-                        <Lists switch={this.switchList} selected={this.state.selected} lists={this.props.lists} add={this.addToList} delete={this.deleteFromList} />
+                        <Lists switch={this.switchList} selected={this.props.selected} lists={this.props.lists} add={this.addToList} delete={this.deleteFromList} />
                     </Route>
                     <Route path='/settings' exact>
                         <Settings name={this.props.name} updateName={this.updateName}/>
