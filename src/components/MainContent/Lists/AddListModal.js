@@ -56,7 +56,7 @@ export default class AddListModal extends Component {
     }
     handlePriority = (e) => {
         this.setState({
-            priority: e.target.value
+            priority: parseInt(e.target.value)
         });
     }
     handleTask = (e) => {

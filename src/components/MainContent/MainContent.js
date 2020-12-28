@@ -23,11 +23,13 @@ export default class MainContent extends Component {
     updateList = (list) => {
         let index = this.getListIndex(list.id);
         let copy = this.props.lists;
+        list.list = this.countingSort(list.list);
         copy[index] = list;
         this.props.updateList(copy);
     }
     addToList = (list) => {
         let copy = this.props.lists;
+        list.list = this.countingSort(list.list);
         copy.push(list);
         this.props.updateList(copy);
     }
@@ -58,6 +60,21 @@ export default class MainContent extends Component {
     updateName = (name) => {
         this.props.updateName(name);
     }
+    countingSort(list){
+        let h = [];
+        let n = [];
+        let l = [];
+        for(let i = 0; i < list.length; i++){
+          if(list[i].priority === 2){
+            h.push(list[i]);
+          } else if(list[i].priority === 1){
+            n.push(list[i]);
+          } else if(list[i].priority === 0){
+            l.push(list[i]);
+          }
+        }
+        return h.concat(n.concat(l));
+      }
     render() {
         return (
             <div className='main-content-container'>
