@@ -11,6 +11,11 @@ export default class Register extends Component {
         confirmPassword: '',
         errorRender: null
     }
+    handleKeyDown = (e) => {
+        if(e.key === 'Enter'){
+            this.register();
+        }
+    }
     handleEmail = (e) => {
         this.setState({
             email: e.target.value
@@ -75,16 +80,16 @@ export default class Register extends Component {
                 {this.state.errorRender} 
                 <div className='register-content'>
                     <h4>Email</h4>
-                    <Form.Control value={this.state.email} onChange={this.handleEmail} />
+                    <Form.Control value={this.state.email} onChange={this.handleEmail} onKeyDown={this.handleKeyDown} />
                     <div className='vertical-spacer'></div>
                     <h4>Username</h4>
-                    <Form.Control value={this.state.username} onChange={this.handleUsername} /> 
+                    <Form.Control value={this.state.username} onChange={this.handleUsername} onKeyDown={this.handleKeyDown} /> 
                     <div className='vertical-spacer'></div>
                     <h4>Password</h4>
-                    <Form.Control type='password' value={this.state.password} onChange={this.handlePassword} />
+                    <Form.Control type='password' value={this.state.password} onChange={this.handlePassword} onKeyDown={this.handleKeyDown} />
                     <div className='vertical-spacer'></div>
                     <h4>Confirm Password</h4>
-                    <Form.Control type='password' value={this.state.confirmPassword} onChange={this.handleConfirm} />
+                    <Form.Control type='password' value={this.state.confirmPassword} onChange={this.handleConfirm} onKeyDown={this.handleKeyDown} />
                 </div>
                 <div style={{height: '2em'}}></div>
                 <Button onClick={this.register}>Create Account</Button>

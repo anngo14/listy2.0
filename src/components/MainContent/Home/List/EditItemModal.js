@@ -35,6 +35,16 @@ export default class EditItemModal extends Component {
             subtask: e.target.value
         });
     }
+    handleTitleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.save();
+        }
+    }
+    handleSubtaskKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.addSubtask();
+        }
+    }
     addSubtask = () => {
         if(this.validateSubtask()){
             let copy = this.state.item;
@@ -75,12 +85,10 @@ export default class EditItemModal extends Component {
         if(this.state.item.title.length === 0) return false;
         return true;
     }
-    delete = (e) => {
-        e.preventDefault();
+    delete = () => {
         this.props.delete(this.state.item);
     }
-    save = (e) => {
-        e.preventDefault();
+    save = () => {
         if(this.validateTask()){
             for(let i = 0; i < this.state.item.subtasks.length; i++){
                 if(this.state.item.subtasks[i].title.length === 0){
@@ -118,7 +126,7 @@ export default class EditItemModal extends Component {
                 <Modal.Body>
                     {this.state.errorRender}
                     <Form>
-                        <Form.Control size='lg' placeholder='Title' id='edit-item-title' value={this.state.item.title} onChange={this.handleTitleChange}/>
+                        <Form.Control size='lg' placeholder='Title' id='edit-item-title' value={this.state.item.title} onChange={this.handleTitleChange} onKeyPress={this.handleTitleKeyPress} />
                         <div className='edit-subheader'>
                             <h4>Priority</h4>
                         </div>
@@ -133,7 +141,7 @@ export default class EditItemModal extends Component {
                             <h4>Sub-Tasks</h4>
                         </div>
                         <div className='edit-add-subtask'>
-                            <Form.Control placeholder='Sub-Task' id='edit-subtask-input' value={this.state.subtask} onChange={this.handleSubtaskChange}/>
+                            <Form.Control placeholder='Sub-Task' id='edit-subtask-input' value={this.state.subtask} onChange={this.handleSubtaskChange} onKeyPress={this.handleSubtaskKeyPress} />
                             <div className='small-spacer'></div>
                             <Button variant='outline-secondary' id='edit-add-subtask-btn' onClick={this.addSubtask}>Add a Sub-Task +</Button>
                         </div>
@@ -143,8 +151,8 @@ export default class EditItemModal extends Component {
                             })}
                         </ListGroup>
                         <div id='edit-item-actions'>
-                            <Button variant='primary' type='submit' onClick={this.save}>Submit</Button>
-                            <Button variant='danger' type='submit' onClick={this.delete}>Delete</Button>
+                            <Button variant='primary' onClick={this.save}>Submit</Button>
+                            <Button variant='danger' onClick={this.delete}>Delete</Button>
                         </div>
                     </Form>
                 </Modal.Body>

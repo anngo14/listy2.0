@@ -7,6 +7,10 @@ export default function CompleteItem(props) {
        copy.status = 0;
        props.complete(copy);
     }
+    let deleteItem = () => {
+        let copy = props.item;
+        props.delete(copy, 1);
+    }
     let timeDiff = () => {
         let dateCreated = props.item.dateCreated;
         let dateCompleted = props.item.dateCompleted;
@@ -90,6 +94,8 @@ export default function CompleteItem(props) {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.item.id}>
                 <Card.Body>
+                    <Button variant='danger' className='complete-clear-btn' onClick={deleteItem}>Delete Task</Button>
+                    <div className='vertical-spacer'></div>
                     <div className='complete-item-content-header'>
                         <h6>Date Created: </h6>
                         <div className='small-spacer'></div>

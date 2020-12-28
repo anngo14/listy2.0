@@ -44,6 +44,9 @@
     display: flex;
     flex-direction: column;
 }
+.complete-clear-btn{
+    width: 100%;
+}
 
 /* SubComplete Item */
 .subcomplete-item{

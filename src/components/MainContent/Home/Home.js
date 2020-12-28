@@ -99,6 +99,22 @@ export default class Home extends Component {
             if(err) console.log(err);
         });
     }
+    clearComplete = () => {
+        let copy = this.props.list;
+        copy.complete = [];
+        axios.post('http://localhost:5000/api/updateSelected', {
+            email: localStorage.getItem("email"),
+            list: copy
+        })
+        .then((res) => {
+            if(res.data.status === 200){
+                this.props.update(copy);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
     toggleCard = () => {
         this.setState({
             card: true
@@ -120,7 +136,7 @@ export default class Home extends Component {
                 <Header />
                 <div className='home-content'>
                     <List list={this.props.list.list === undefined ? []: this.props.list.list} add={this.addToList} update={this.updateFromList} delete={this.deleteFromList} switch={this.switchToList} title={this.props.list !== null ? this.props.list.title: null} toggleCard={this.toggleCard} />
-                    <Complete list={this.props.list.complete === undefined ? []: this.props.list.complete} switch={this.switchToList} card={this.state.card}/>
+                    <Complete list={this.props.list.complete === undefined ? []: this.props.list.complete} switch={this.switchToList} card={this.state.card} delete={this.deleteFromList} title={this.props.list !== null ? this.props.list.title: null} clearComplete={this.clearComplete} />
                 </div>
             </div>
         )

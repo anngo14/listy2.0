@@ -160,12 +160,7 @@ app.post('/api/updateSelected', (req, res) => {
     collection.updateOne({email: email}, 
         {
             $set: {
-                selected: {
-                    id: list.id,
-                    title: list.title,
-                    list: list.list,
-                    complete: list.complete
-                }
+                selected: list
             }
         })
         .catch((err) => {

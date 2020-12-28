@@ -16,8 +16,7 @@ export default class AddListModal extends Component {
         if(this.state.title.length === 0) return false;
         return true;
     }
-    addToList = (e) => {
-        e.preventDefault();
+    addToList = () => {
         if(this.validate()){
             this.setState({
                 title: '',
@@ -65,8 +64,17 @@ export default class AddListModal extends Component {
             task: e.target.value
         });
     }
-    addTask = (e) => {
-        e.preventDefault();
+    handleTaskKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.addTask();
+        }
+    }
+    handleTitleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.addToList();
+        }
+    }
+    addTask = () => {
         let d = new Date();
         let copy = this.state.list;
         let task = {
@@ -119,9 +127,7 @@ export default class AddListModal extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     {this.state.errorRender}
-                    <Form>
-                        <Form.Control placeholder='Title' size='lg' value={this.state.title} onChange={this.handleTitle} />
-                    </Form>
+                    <Form.Control placeholder='Title' size='lg' value={this.state.title} onChange={this.handleTitle} onKeyPress={this.handleTitleKeyPress} />
                     <div className='add-list-subheader'>
                         <h4>Tasks</h4>
                     </div>
@@ -132,7 +138,7 @@ export default class AddListModal extends Component {
                             <option value='0'>Low</option>
                         </Form.Control>
                         <div className='small-spacer'></div>
-                        <Form.Control placeholder='Task' value={this.state.task} onChange={this.handleTask} className='add-list-input' />
+                        <Form.Control placeholder='Task' value={this.state.task} onChange={this.handleTask} className='add-list-input' onKeyPress={this.handleTaskKeyPress} />
                         <div className='small-spacer'></div>
                         <Button variant='outline-secondary' onClick={this.addTask} className='add-list-btn'>Add a List Task +</Button>
                     </div>

@@ -44,6 +44,16 @@ export default class AddItemModal extends Component {
             priority: parseInt(e.target.value)
         });
     }
+    handleTitleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.addItem();
+        }
+    }
+    handleSubtaskKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.addSubTask();
+        }
+    }
     addSubTask = () => {
         if(this.validateSubitem()){
             this.setState({
@@ -69,8 +79,7 @@ export default class AddItemModal extends Component {
         if(this.state.title.length === 0) return false;
         return true;
     }
-    addItem = (e) => {
-        e.preventDefault();
+    addItem = () => {
         if(this.validateItem()){
             let d = new Date();
             let month = d.getMonth() + 1;
@@ -116,7 +125,7 @@ export default class AddItemModal extends Component {
                 <Modal.Body>
                     {this.state.errorRender}
                     <Form>
-                        <Form.Control size='lg' placeholder='Title' id='add-title-input' value={this.state.title} onChange={this.handleTitleChange} />
+                        <Form.Control size='lg' placeholder='Title' id='add-title-input' value={this.state.title} onChange={this.handleTitleChange} onKeyPress={this.handleTitleKeyPress} />
                         <div className='add-item-subheader'>
                             <h4>Priority</h4>
                         </div>
@@ -131,7 +140,7 @@ export default class AddItemModal extends Component {
                             <h4>Sub-Tasks</h4>
                         </div>
                         <div id='add-subtasks-row'>
-                            <Form.Control placeholder='Sub-Task' id='add-subtasks-input' value={this.state.subtask} onChange={this.handleSubtaskChange} />
+                            <Form.Control placeholder='Sub-Task' id='add-subtasks-input' value={this.state.subtask} onChange={this.handleSubtaskChange} onKeyPress={this.handleSubtaskKeyPress} />
                             <div className='small-spacer'></div>
                             <Button variant='outline-secondary' id='add-subtasks-btn' onClick={this.addSubTask}>Add a Sub-Task +</Button>
                         </div>
@@ -140,7 +149,7 @@ export default class AddItemModal extends Component {
                                 return <SublistItem item={item} key={item.id} delete={this.deleteSubTask} change={this.handleSubTaskItemChange} />
                             })}
                         </ListGroup>
-                        <Button variant='primary' type='submit' onClick={this.addItem}>Submit</Button>
+                        <Button variant='primary' onClick={this.addItem}>Submit</Button>
                     </Form>
                 </Modal.Body>
             </Modal>
