@@ -92,15 +92,15 @@ export default class App extends Component {
       name: name
     });
   }
-  updateList = (list) => {
+  updateList = (masterList) => {
     axios.post('http://localhost:5000/api/updateList', {
       email: localStorage.getItem("email"),
-      list: list
+      list: masterList
     })
     .then((res) => {
       if(res.data.status === 200){
         this.setState({
-          lists: list
+          lists: masterList
         });
       }
     })

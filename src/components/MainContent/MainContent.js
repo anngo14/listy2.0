@@ -22,16 +22,15 @@ export default class MainContent extends Component {
     }
     updateList = (list) => {
         let index = this.getListIndex(list.id);
-        let copy = this.props.lists;
-        list.list = this.countingSort(list.list);
-        copy[index] = list;
-        this.props.updateList(copy);
+        let masterList = this.props.lists;
+        masterList[index] = list;
+        this.props.updateList(masterList);
     }
     addToList = (list) => {
-        let copy = this.props.lists;
+        let masterList = this.props.lists;
         list.list = this.countingSort(list.list);
-        copy.push(list);
-        this.props.updateList(copy);
+        masterList.push(list);
+        this.props.updateList(masterList);
     }
     deleteFromList = (list) => {
         axios.post('http://localhost:5000/api/deleteList', {

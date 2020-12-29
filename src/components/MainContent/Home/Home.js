@@ -8,9 +8,7 @@ import List from './List/List'
 
 export default class Home extends Component {
     state = {
-        card: false,
-        list: this.props.list.list === undefined ? []: this.props.list.list,
-        complete: this.props.list.complete === undefined ? []: this.props.list.complete
+        card: false
     }
     getIndex(item, array){
         for(let i = 0; i < array.length; i++){
@@ -33,14 +31,16 @@ export default class Home extends Component {
         this.deleteFromList(item, type);
     }
     addToList = (item, type) => {
-        let copy = [];
+        let list = [];
         if(type === 0){
-            copy = this.props.list.list;
+            let listCopy = this.props.list.list;
+            listCopy.push(item);
+            list = this.countingSort(listCopy);
         } else if(type === 1){
-            copy = this.props.list.complete;
+            list = this.props.list.complete;
+            list.push(item);
         }
-        copy.push(item);
-        this.setList(copy, type);
+        this.setList(list, type);
     }
     updateFromList = (item, type) => {
         let index = -1;
@@ -58,41 +58,32 @@ export default class Home extends Component {
     }
     deleteFromList = (item, type) => {
         let index = -1;
-        let copy = [];
+        let list = [];
         if(type === 0){
             index = this.getIndex(item, this.props.list.list);
-            copy = this.props.list.list;
+            list = this.props.list.list;
         } else if(type === 1){
             index = this.getIndex(item, this.props.list.complete);
-            copy = this.props.list.complete;
+            list = this.props.list.complete;
         }
         if(index === -1) return;
-        copy.splice(index, 1);
-        this.setList(copy, type);
+        list.splice(index, 1);
+        this.setList(list, type);
     }
     setList(list, type){
-        let copy = this.props.list;
+        let selected = this.props.list;
+        if(type === 0){
+            selected.list = list;
+        } else if(type === 1){
+            selected.complete = list;
+        }
         axios.post('http://localhost:5000/api/updateSelected', {
             email: localStorage.getItem("email"),
-            list: this.props.list
+            list: selected
         })
         .then((res) => {
             if(res.data.status === 200){
-                if(type === 0){
-                    this.setState({
-                        list: list
-                    });
-                    copy.list = this.props.list.list;
-                } else if(type === 1){
-                    this.setState({
-                        complete: list
-                    });
-                    copy.complete = this.props.list.complete;
-                }
-                this.setState({
-                    selected: copy
-                });
-                this.props.update(copy);
+                this.props.update(selected);
             }
         })
         .catch((err) => {
@@ -123,8 +114,23 @@ export default class Home extends Component {
             this.setState({
                 card: false
             })
-        },400);
+        }, 400);
     }
+    countingSort(list){
+        let h = [];
+        let n = [];
+        let l = [];
+        for(let i = 0; i < list.length; i++){
+          if(list[i].priority === 2){
+            h.push(list[i]);
+          } else if(list[i].priority === 1){
+            n.push(list[i]);
+          } else if(list[i].priority === 0){
+            l.push(list[i]);
+          }
+        }
+        return h.concat(n.concat(l));
+      }
     render() {
         let redirectLogin;
         if(this.props.loggedIn === undefined || this.props.loggedIn === null || this.props.loggedIn === false){
