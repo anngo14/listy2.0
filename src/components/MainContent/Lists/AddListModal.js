@@ -30,7 +30,7 @@ export default class AddListModal extends Component {
                 list: this.state.list,
                 complete: []
             };
-            axios.post('http://localhost:5000/api/addList', {
+            axios.post('https://listy2.herokuapp.com/api/addList', {
                 email: localStorage.getItem("email"),
                 list: list
             })

@@ -32,7 +32,7 @@ export default class Login extends Component {
     }
     login = () => {
         if(this.validate()){
-            axios.post('http://localhost:5000/api/login', {
+            axios.post('https://listy2.herokuapp.com/api/login', {
                 email: this.state.email,
                 pass: this.state.password
             })

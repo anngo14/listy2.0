@@ -33,7 +33,7 @@ export default class MainContent extends Component {
         this.props.updateList(masterList);
     }
     deleteFromList = (list) => {
-        axios.post('http://localhost:5000/api/deleteList', {
+        axios.post('https://listy2.herokuapp.com/api/deleteList', {
             email: localStorage.getItem("email"),
             id: list.id
         })

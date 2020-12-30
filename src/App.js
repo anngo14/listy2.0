@@ -15,7 +15,7 @@ export default class App extends Component {
         avatar: '',
         lists: [],
         selected: {},
-        loggedIn: localStorage.getItem("token") !== undefined ? true: false
+        loggedIn: localStorage.getItem("token") !== null ? true: false
       }
     }
   componentDidMount(){
@@ -36,7 +36,7 @@ export default class App extends Component {
     });
   }
   getUsername(){
-    axios.post('http://localhost:5000/api/getUsername', {
+    axios.post('https://listy2.herokuapp.com/api/getUsername', {
       email: localStorage.getItem("email")
     })
     .then((res) => {
@@ -49,7 +49,7 @@ export default class App extends Component {
     });
   }
   getAvatar(){
-    axios.post('http://localhost:5000/api/getAvatar', {
+    axios.post('https://listy2.herokuapp.com/api/getAvatar', {
       email: localStorage.getItem("email")
     })
     .then((res) => {
@@ -62,7 +62,7 @@ export default class App extends Component {
     });
   }
   getLists(){
-      axios.post('http://localhost:5000/api/getLists', {
+      axios.post('https://listy2.herokuapp.com/api/getLists', {
           email: localStorage.getItem("email")
       })
       .then((res) => {
@@ -75,7 +75,7 @@ export default class App extends Component {
       })
   }
   getSelected(){
-    axios.post('http://localhost:5000/api/getSelected', {
+    axios.post('https://listy2.herokuapp.com/api/getSelected', {
         email: localStorage.getItem("email")
     })
     .then((res) => {
@@ -93,7 +93,7 @@ export default class App extends Component {
     });
   }
   updateList = (masterList) => {
-    axios.post('http://localhost:5000/api/updateList', {
+    axios.post('https://listy2.herokuapp.com/api/updateList', {
       email: localStorage.getItem("email"),
       list: masterList
     })
@@ -114,7 +114,7 @@ export default class App extends Component {
     });
   }
   switchList = (list) => {
-    axios.post('http://localhost:5000/api/updateSelected', {
+    axios.post('https://listy2.herokuapp.com/api/updateSelected', {
         email: localStorage.getItem("email"),
         list: list
     })

@@ -44,12 +44,12 @@ export default class Register extends Component {
     }
     register = () => {
         if(this.validate()){
-            axios.post('http://localhost:5000/api/checkExistingUser', {
+            axios.post('https://listy2.herokuapp.com/api/checkExistingUser', {
                 email: this.state.email
             })
             .then((res) => {
                 if(res.data.status === 404){
-                    axios.post('http://localhost:5000/api/register', {
+                    axios.post('https://listy2.herokuapp.com/api/register', {
                         email: this.state.email,
                         pass: this.state.password,
                         username: this.state.username

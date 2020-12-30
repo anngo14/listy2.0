@@ -56,7 +56,7 @@ export default class Settings extends Component {
     updateName = () => {
         if(this.validateName()){
             let name = this.state.name;
-            axios.post('http://localhost:5000/api/updateUser', {
+            axios.post('https://listy2.herokuapp.com/api/updateUser', {
                 email: localStorage.getItem("email"),
                 name: name
             })

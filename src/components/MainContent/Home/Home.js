@@ -77,7 +77,7 @@ export default class Home extends Component {
         } else if(type === 1){
             selected.complete = list;
         }
-        axios.post('http://localhost:5000/api/updateSelected', {
+        axios.post('https://listy2.herokuapp.com/api/updateSelected', {
             email: localStorage.getItem("email"),
             list: selected
         })
@@ -93,7 +93,7 @@ export default class Home extends Component {
     clearComplete = () => {
         let copy = this.props.list;
         copy.complete = [];
-        axios.post('http://localhost:5000/api/updateSelected', {
+        axios.post('https://listy2.herokuapp.com/api/updateSelected', {
             email: localStorage.getItem("email"),
             list: copy
         })
@@ -133,7 +133,7 @@ export default class Home extends Component {
       }
     render() {
         let redirectLogin;
-        if(this.props.loggedIn === undefined || this.props.loggedIn === null || this.props.loggedIn === false){
+        if(this.props.loggedIn === null || this.props.loggedIn === false){
             redirectLogin = <Redirect to='/login' />
         }
         return (
