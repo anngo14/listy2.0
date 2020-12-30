@@ -29,7 +29,7 @@ export default class Header extends Component {
                         <div className='header-content'>
                             <img alt='cloud' src={Cloud} className='clouds' id='cloud1' />
                             <img alt='cloud' src={Cloud} className='clouds' id='cloud2' />
-                            <img alt='clouds' src={MCloud} id='clouds' />
+                            <img alt='clouds' src={MCloud} id='mclouds' className='clouds' />
                             <img alt='sun' src={Sun} id='sun' />
                         </div>
                     )
@@ -42,8 +42,12 @@ export default class Header extends Component {
                     headerContent: (
                         <div className='header-content'>
                             <img alt='moon' src={Moon} id='moon' />
-                            <img alt='white-star' src={WStar} className='star' />
-                            <img alt='yellow-star' src={YStar} className='star' />
+                            <img alt='white-star' src={WStar} className='star' id='star1' />
+                            <img alt='yellow-star' src={YStar} className='star' id='star2' />
+                            <img alt='white-star' src={WStar} className='star' id='star3' />
+                            <img alt='yellow-star' src={YStar} className='star' id='star4' />
+                            <img alt='white-star' src={WStar} className='star' id='star5' />
+                            <img alt='yellow-star' src={YStar} className='star' id='star6' />
                         </div>
                     )
                 })

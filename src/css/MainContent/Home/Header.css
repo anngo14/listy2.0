@@ -70,14 +70,57 @@
     transform: translateX(-100%);
     animation: slideRight 20s linear 3s infinite;
 }
-#clouds{
+#mclouds{
     height: 10em;
-    position: absolute;
-    top: 1em;
+    top: 2em;
     right: 0;
     transform: translateX(100%);
-    z-index: 1;
     animation: slideLeft 30s linear infinite;
+}
+#moon{
+    height: 10em;
+    position: absolute;
+    right: -1em;
+    top: -0.5em;
+}
+.star{
+    position: absolute;
+    z-index: 1;
+    height: 5em;
+}
+#star1{
+    left: 22%;
+    top: 2em;
+    height: 2.5em;
+    animation: float 4s linear infinite alternate forwards;
+}
+#star2{
+    left: 2%;
+    top: 5em;
+    animation: float 7s linear infinite alternate forwards;
+    height: 4.5em;
+}
+#star3{
+    top: -2em;
+    left: 38%;
+    animation: float 10s linear infinite alternate forwards;
+    height: 6em;
+}
+#star4{
+    right: 11%;
+    top: 3em;
+    animation: float 26s linear infinite alternate forwards;
+    height: 3em;
+}
+#star5{
+    right: 28%;
+    animation: float 6s linear infinite alternate forwards;
+    height: 4.5em;
+}
+#star6{
+    right: 42%;
+    top: 3em;
+    animation: float 9s linear infinite alternate forwards;
 }
 @keyframes slideRight{
     100%{ transform: translateX(62em); }
@@ -85,9 +128,27 @@
 @keyframes slideLeft{
     100%{ transform: translateX(-62em); }
 }
+@keyframes float{
+    50%{ transform: translateY(-15%); }
+    100%{ transform: translateY(15%); }
+}
+@keyframes spin{
+    0%{ transform: rotate(0deg); }
+    50%{ transform: rotate(360deg); }
+    100%{ transform: rotate(360deg); }
+}
 @media(max-width: 1504px){
     .home-header-container{
         width: 100%;
+    }
+}
+@media(max-width: 1088px){
+    #star5{
+        bottom: -0.5em;
+        right: 21%;
+    }
+    #star6{
+        right: 35%;
     }
 }
 @media(max-width: 578px){
@@ -103,8 +164,23 @@
         height: 10em;
     }
 }
+@media(max-width: 500px){
+    #star6{
+        display: none;
+    }
+}
 @media(max-width: 400px){
     #sun{
+        top: 1em;
+        right: 0;
+    }
+    #star3{
+        display: none;
+    }
+    #star5{
+        display: none;
+    }
+    #moon{
         top: 1em;
         right: 0;
     }
