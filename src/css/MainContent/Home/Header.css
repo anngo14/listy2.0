@@ -17,7 +17,7 @@
 .home-header-content{
     position: relative;
     width: 100%;
-    z-index: 1;
+    overflow: hidden;
 }
 #home-header-time{
     position: absolute;
@@ -25,6 +25,11 @@
     left: 0;
     margin-top: 1em;
     margin-left: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 0.5em;
+    background-color: white;
+    z-index: 2;
 }
 #home-header-plan{
     position: absolute;
@@ -34,7 +39,52 @@
     margin-right: 1em;
     cursor: pointer;
 }
+.header-content{
+    height: 100%;
+    position: relative;
+}
 
+/* Content Assets */
+#sun{
+    height: 10em;
+    position: absolute;
+    top: -0.5em;
+    right: 1em;
+    z-index: 0;
+}
+.clouds{
+    height: 10em;
+    position: absolute;    
+    z-index: 1;
+}
+#cloud1{
+    top: -2em;
+    left: 0;
+    transform: translateX(-100%);
+    animation: slideRight 35s linear infinite;
+}
+#cloud2{
+    height: 8em;
+    top: 2em;
+    left: 0;
+    transform: translateX(-100%);
+    animation: slideRight 20s linear 3s infinite;
+}
+#clouds{
+    height: 10em;
+    position: absolute;
+    top: 1em;
+    right: 0;
+    transform: translateX(100%);
+    z-index: 1;
+    animation: slideLeft 30s linear infinite;
+}
+@keyframes slideRight{
+    100%{ transform: translateX(62em); }
+}
+@keyframes slideLeft{
+    100%{ transform: translateX(-62em); }
+}
 @media(max-width: 1504px){
     .home-header-container{
         width: 100%;
@@ -48,6 +98,15 @@
     .home-header-calendar{
         width: 100%;
         height: 8em;
+    }
+    .home-header-content{
+        height: 10em;
+    }
+}
+@media(max-width: 400px){
+    #sun{
+        top: 1em;
+        right: 0;
     }
 }
 @media(max-width: 300px){
