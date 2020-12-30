@@ -10,6 +10,7 @@
     text-align: center;
     padding: 0.5em;
     color: whitesmoke;
+    cursor: default;
 }
 .complete-list-container{
     width: 100%;
@@ -33,12 +34,14 @@
     flex-direction: row;
     align-items: baseline;
     width: 100%;
+    cursor: default;
 }
 .complete-item-content{
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 65%;
+    cursor: default;
 }
 .complete-item-header-content{
     display: flex;
@@ -46,6 +49,9 @@
 }
 .complete-clear-btn{
     width: 100%;
+}
+.subtask-container{
+    cursor: default;
 }
 
 /* SubComplete Item */

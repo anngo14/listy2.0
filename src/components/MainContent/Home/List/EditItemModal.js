@@ -117,7 +117,7 @@ export default class EditItemModal extends Component {
     }
     render() {
         return (
-            <Modal centered show={this.props.show} onHide={this.props.onHide}>
+            <Modal centered show={this.props.show} onHide={this.props.onHide} style={{cursor:'default'}}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Edit Item

@@ -25,6 +25,7 @@
     justify-content: center;
     align-items: center;
     font-size: 14pt;
+    cursor: default;
 }
 
 @media(max-width: 906px){

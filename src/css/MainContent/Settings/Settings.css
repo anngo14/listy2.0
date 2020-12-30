@@ -3,6 +3,9 @@
     margin-top: 2em;
     max-width: 45em;
 }
+.settings-main-container{
+    cursor: default;
+}
 
 /* Settings Section */
 .settings-section{

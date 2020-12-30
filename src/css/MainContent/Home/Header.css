@@ -13,6 +13,7 @@
     justify-content: center;
     width: 10em;
     background-color: #EAECEE;
+    cursor: default;
 }
 .home-header-content{
     position: relative;
@@ -30,6 +31,7 @@
     padding: 0.5em;
     background-color: white;
     z-index: 2;
+    cursor: default;
 }
 #home-header-plan{
     position: absolute;

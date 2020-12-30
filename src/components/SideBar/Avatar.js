@@ -7,7 +7,7 @@ export default function avatar(props) {
         <div className='avatar'>
             <img alt='avatar-icon' src={defaultIcon} />
             <div className='vertical-spacer'></div>
-            <h2>{props.user}</h2>
+            <h2 style={{cursor:'default'}}>{props.user}</h2>
         </div>
     )
 }

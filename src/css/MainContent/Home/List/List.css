@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    cursor: default;
 }
 .list-content-container{
     width: 100%;
@@ -30,6 +31,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    cursor: default;
 }
 .list-item-header-title{
     display: flex;
@@ -50,6 +52,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    cursor: default;
 }
 .list-item-created{
     display: flex;
@@ -73,6 +76,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 1em 2em;
+    cursor: default;
 }
 .sublist-header{
     display: flex;

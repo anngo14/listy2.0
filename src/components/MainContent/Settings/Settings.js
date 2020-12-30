@@ -85,7 +85,7 @@ export default class Settings extends Component {
         });
     }
     updatePassword = () => {
-        axios.post('http://localhost:5000/api/changePassword', {
+        axios.post('https://listy2.herokuapp.com/api/changePassword', {
             email: localStorage.getItem("email"),
             pass: this.state.newPassword
         })
@@ -125,7 +125,7 @@ export default class Settings extends Component {
         }
     }
     delete = () => {
-        axios.post('http://localhost:5000/api/deleteAccount', {
+        axios.post('https://listy2.herokuapp.com/api/deleteAccount', {
             email: localStorage.getItem("email")
         })
         .then((res) => {
@@ -172,7 +172,7 @@ export default class Settings extends Component {
     }
     render(){
         return (
-            <div>
+            <div className='settings-main-container'>
                 {this.state.redirect} 
                 <h1 className='content-title'>Settings</h1>
                 <div id='settings-container'>

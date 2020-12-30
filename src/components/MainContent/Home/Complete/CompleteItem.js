@@ -54,7 +54,7 @@ export default function CompleteItem(props) {
     let subtasks;
     if(props.item.subtasks !== undefined && props.item.subtasks.length > 0){
         subtasks = (
-            <div>
+            <div className='subtask-container'>
                 <h6>Sub-Tasks</h6>
                 {props.item.subtasks.map((sub) => {
                     return (

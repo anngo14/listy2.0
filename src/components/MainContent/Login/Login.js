@@ -75,7 +75,7 @@ export default class Login extends Component {
                 {this.state.errorMsg}
                 <div className='login-content'>
                     <h4>Email</h4>
-                    <Form.Control value={this.state.email} onChange={this.handleEmail} onKeyDown={this.handleKeyDown} />
+                    <Form.Control type='email' value={this.state.email} onChange={this.handleEmail} onKeyDown={this.handleKeyDown} />
                     <div className='vertical-spacer'></div>
                     <h4>Password</h4>
                     <Form.Control type='password' value={this.state.password} onChange={this.handlePassword} onKeyDown={this.handleKeyDown} />
