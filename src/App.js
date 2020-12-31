@@ -20,6 +20,9 @@ export default class App extends Component {
     }
   componentDidMount(){
     if(this.state.loggedIn){
+      axios.defaults.headers.common = {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      };
       this.getUsername();
       this.getAvatar();
       this.getLists();
