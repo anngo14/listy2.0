@@ -132,17 +132,12 @@ export default class Home extends Component {
         return h.concat(n.concat(l));
     }
     render() {
-        let redirectList;
-        if(this.props.list.id === undefined){
-            redirectList= <Redirect to='/lists' />
-        }
         let redirectLogin;
         if(this.props.loggedIn === null || this.props.loggedIn === false){
             redirectLogin = <Redirect to='/login' />
         }
         return (
             <div className='home-container'>
-                {redirectList} 
                 {redirectLogin} 
                 <Header />
                 <div className='home-content'>
