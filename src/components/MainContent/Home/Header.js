@@ -20,7 +20,7 @@ export default class Header extends Component {
     componentDidMount(){
         this.clockInterval = setInterval(() => {
             this.tick();
-            if(this.state.date.getHours() >= 5 && this.state.date.getHours() <= 19){
+            if(this.state.date.getHours() >= 5 && this.state.date.getHours() < 18){
                 this.setState({
                     headerStyle: {
                         backgroundColor: '#87CEEB'

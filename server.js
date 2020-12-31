@@ -107,28 +107,28 @@ app.post('/api/checkExistingUser', (req, res) => {
         }
     });
 });
-app.post('/api/getUsername', (req, res) => {
+app.post('/api/getUsername', verifyToken, (req, res) => {
     let email = req.body.email;
     collection.findOne({email: email}, { projection: { _id: 0, username: 1 }}, (err, result) => {
         if(err) throw err;
         res.send({result});
     });
 });
-app.post('/api/getAvatar', (req, res) => {
+app.post('/api/getAvatar', verifyToken, (req, res) => {
     let email = req.body.email;
     collection.findOne({email: email}, { projection: { _id: 0, avatar: 1 }}, (err, result) => {
         if(err) throw err;
         res.send({result});
     });
 })
-app.post('/api/getLists', (req, res) => {
+app.post('/api/getLists', verifyToken, (req, res) => {
     let email = req.body.email;
     collection.findOne({email: email}, { projection: { _id: 0, lists: 1 }}, (err, result) => {
         if(err) throw err;
         res.send({result});
     });
 });
-app.post('/api/addList', (req, res) => {
+app.post('/api/addList', verifyToken, (req, res) => {
     let email = req.body.email;
     let list = req.body.list;
     collection.updateOne({email: email}, 
@@ -147,14 +147,14 @@ app.post('/api/addList', (req, res) => {
         });
     res.send({status: 200});
 });
-app.post('/api/getSelected', (req, res) => {
+app.post('/api/getSelected', verifyToken, (req, res) => {
     let email = req.body.email;
     collection.findOne({email: email}, { projection: { _id: 0, selected: 1 }}, (err, result) => {
         if(err) throw err;
         res.send({result});
     });
 });
-app.post('/api/updateSelected', (req, res) => {
+app.post('/api/updateSelected', verifyToken, (req, res) => {
     let email = req.body.email;
     let list = req.body.list;
     collection.updateOne({email: email}, 
@@ -168,7 +168,7 @@ app.post('/api/updateSelected', (req, res) => {
         });
     res.send({status: 200});
 });
-app.post('/api/deleteList', (req, res) => {
+app.post('/api/deleteList', verifyToken, (req, res) => {
     let email = req.body.email;
     let id = req.body.id;
     collection.updateOne({email: email}, 
@@ -182,7 +182,7 @@ app.post('/api/deleteList', (req, res) => {
         });
     res.send({status: 200});
 });
-app.post('/api/updateList', (req, res) => {
+app.post('/api/updateList', verifyToken, (req, res) => {
     let email = req.body.email;
     let list = req.body.list;
     collection.updateOne({email: email},
@@ -196,14 +196,14 @@ app.post('/api/updateList', (req, res) => {
         });
     res.send({status: 200});
 });
-app.post('/api/deleteAccount', (req, res) => {
+app.post('/api/deleteAccount', verifyToken, (req, res) => {
     let email = req.body.email;
     collection.deleteOne({email: email}, (err, result) => {
         if(err) throw err;
         res.send({status: 200});
     })
 });
-app.post('/api/updateUser', (req, res) => {
+app.post('/api/updateUser', verifyToken, (req, res) => {
     let email = req.body.email;
     let name = req.body.name;
     collection.updateOne({email: email}, {
@@ -213,7 +213,7 @@ app.post('/api/updateUser', (req, res) => {
     });
     res.send({status: 200});
 });
-app.post('/api/changePassword', async (req, res) => {
+app.post('/api/changePassword', verifyToken, async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     const salt = await bcrypt.genSalt();
