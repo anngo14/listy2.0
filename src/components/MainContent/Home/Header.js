@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
 import '../../../css/MainContent/Home/Header.css'
-import Cloud from './assets/Morning/Cloud.png'
-import MCloud from './assets/Morning/Multiple Clouds.png'
-import Sun from './assets/Morning/Sun.png'
-import Moon from './assets/Night/Moon.png'
-import WStar from './assets/Night/White star.png'
-import YStar from './assets/Night/Yellow star.png'
 
 export default class Header extends Component {
     months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -27,10 +21,10 @@ export default class Header extends Component {
                     },
                     headerContent: (
                         <div className='header-content'>
-                            <img alt='cloud' src={Cloud} className='clouds' id='cloud1' />
-                            <img alt='cloud' src={Cloud} className='clouds' id='cloud2' />
-                            <img alt='clouds' src={MCloud} id='mclouds' className='clouds' />
-                            <img alt='sun' src={Sun} id='sun' />
+                            <img alt='cloud' src={process.env.PUBLIC_URL + '/resource/Morning/Cloud.png'} className='clouds' id='cloud1' />
+                            <img alt='cloud' src={process.env.PUBLIC_URL + '/resource/Morning/Cloud.png'} className='clouds' id='cloud2' />
+                            <img alt='clouds' src={process.env.PUBLIC_URL + '/resource/Morning/Multiple Clouds.png'} id='mclouds' className='clouds' />
+                            <img alt='sun' src={process.env.PUBLIC_URL + '/resource/Morning/Sun.png'} id='sun' />
                         </div>
                     )
                 })
@@ -41,13 +35,13 @@ export default class Header extends Component {
                     },
                     headerContent: (
                         <div className='header-content'>
-                            <img alt='moon' src={Moon} id='moon' />
-                            <img alt='white-star' src={WStar} className='star' id='star1' />
-                            <img alt='yellow-star' src={YStar} className='star' id='star2' />
-                            <img alt='white-star' src={WStar} className='star' id='star3' />
-                            <img alt='yellow-star' src={YStar} className='star' id='star4' />
-                            <img alt='white-star' src={WStar} className='star' id='star5' />
-                            <img alt='yellow-star' src={YStar} className='star' id='star6' />
+                            <img alt='moon' src={process.env.PUBLIC_URL + '/resource/Night/Moon.png'} id='moon' />
+                            <img alt='white-star' src={process.env.PUBLIC_URL + '/resource/Night/White star.png'} className='star' id='star1' />
+                            <img alt='yellow-star' src={process.env.PUBLIC_URL + '/resource/Night/Yellow star.png'} className='star' id='star2' />
+                            <img alt='white-star' src={process.env.PUBLIC_URL + '/resource/Night/White star.png'} className='star' id='star3' />
+                            <img alt='yellow-star' src={process.env.PUBLIC_URL + '/resource/Night/Yellow star.png'} className='star' id='star4' />
+                            <img alt='white-star' src={process.env.PUBLIC_URL + '/resource/Night/White star.png'} className='star' id='star5' />
+                            <img alt='yellow-star' src={process.env.PUBLIC_URL + '/resource/Night/Yellow star.png'} className='star' id='star6' />
                         </div>
                     )
                 })
